@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace openCVtest.Properties
+namespace corvus.Properties
 {
 
 

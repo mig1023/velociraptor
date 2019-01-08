@@ -14,55 +14,41 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Emgu.CV;
-using Emgu.CV.CvEnum;
+using Emgu.CV.UI;
 using Emgu.CV.Structure;
-using Emgu.CV.Cvb;
+using System.Drawing;
+using System.Timers;
+using System.Threading;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Emgu.CV.Util;
 
-namespace openCVtest
+namespace corvus
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public static System.Timers.Timer video = new System.Timers.Timer(500);
+
+        public static ImageViewer viewer = new ImageViewer();
+        public static VideoCapture capture = new VideoCapture();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            //String win1 = "Test Window"; //The name of the window
-            //CvInvoke.NamedWindow(win1); //Create the window using the specific name
-
-            //Mat img1 = new Mat(200, 400, DepthType.Cv8U, 3); //Create a 3 channel image of 400x200
-            //img1.SetTo(new Bgr(255, 0, 0).MCvScalar); // set it to Blue color
-
-            ////Draw "Hello, world." on the image using the specific font
-            //CvInvoke.PutText(
-            //   img1,
-            //   "Hello, world",
-            //   new System.Drawing.Point(10, 80),
-            //   FontFace.HersheyComplex,
-            //   1.0,
-            //   new Bgr(0, 255, 0).MCvScalar);
-
-
-            //CvInvoke.Imshow(win1, img1); //Show the image
-            //CvInvoke.WaitKey(0);  //Wait for the key pressing event
-            //CvInvoke.DestroyWindow(win1); //Destroy the window if key is pressed
-
-
-            //////////////////////////////////////////////////////////////
-
-            //Load the image from file and resize it for display
-            Image<Bgr, Byte> img =
-               new Image<Bgr, byte>("1.png")
-               .Resize(400, 400, Emgu.CV.CvEnum.Inter.Linear, true);
-
-            imageBox.Source = BitmapSourceConvert.ToBitmapSource(img);
+            video.Elapsed += new ElapsedEventHandler(VideoFrameCapture);
+            video.Enabled = true;
+            video.Start();
         }
 
+        public static void VideoFrameCapture(object obj, ElapsedEventArgs e)
+        {
+            viewer.Image = capture.QueryFrame();
+
+            Application.Current.Dispatcher.BeginInvoke(new ThreadStart(delegate
+            {
+                MainWindow main = (MainWindow)Application.Current.MainWindow;
+                main.image.Source = BitmapSourceConvert.ToBitmapSource(viewer.Image);
+            }));
+        }
         public static class BitmapSourceConvert
         {
             [DllImport("gdi32")]
@@ -70,7 +56,7 @@ namespace openCVtest
 
             public static BitmapSource ToBitmapSource(IImage image)
             {
-                using (System.Drawing.Bitmap source = image.Bitmap)
+                using (Bitmap source = image.Bitmap)
                 {
                     IntPtr ptr = source.GetHbitmap();
 
