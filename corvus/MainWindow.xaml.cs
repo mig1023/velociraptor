@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
 
 using Emgu.CV;
 using Emgu.CV.UI;
 using Emgu.CV.Structure;
-using System.Drawing;
 using System.Timers;
 using System.Threading;
 using System.Runtime.InteropServices;
@@ -27,8 +27,9 @@ namespace corvus
     {
         public static System.Timers.Timer video = new System.Timers.Timer(500);
 
-        public static ImageViewer viewer = new ImageViewer();
         public static VideoCapture capture = new VideoCapture();
+
+        public static CascadeClassifier cascadeClassifier = new CascadeClassifier("frontalFace.xml");
 
         public MainWindow()
         {
@@ -41,13 +42,29 @@ namespace corvus
 
         public static void VideoFrameCapture(object obj, ElapsedEventArgs e)
         {
-            viewer.Image = capture.QueryFrame();
-
-            Application.Current.Dispatcher.BeginInvoke(new ThreadStart(delegate
+            using (var imageFrame = capture.QueryFrame().ToImage<Bgr, Byte>())
             {
-                MainWindow main = (MainWindow)Application.Current.MainWindow;
-                main.image.Source = BitmapSourceConvert.ToBitmapSource(viewer.Image);
-            }));
+                if (imageFrame != null)
+                {
+                    var grayFrame = imageFrame.Convert<Gray, byte>();
+                    var faces = cascadeClassifier.DetectMultiScale(imageFrame, 1.1, 10, System.Drawing.Size.Empty);
+
+                    foreach (var face in faces)
+                    {
+                        imageFrame.Draw(face, new Bgr(System.Drawing.Color.BurlyWood), 3);
+                    }
+
+                    var newFrame = imageFrame.Convert<Gray, byte>();
+
+                    Application.Current.Dispatcher.BeginInvoke(new ThreadStart(delegate
+                    {
+                        MainWindow main = (MainWindow)Application.Current.MainWindow;
+                        main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrame);
+                    }));
+                }
+
+
+            }
         }
         public static class BitmapSourceConvert
         {
