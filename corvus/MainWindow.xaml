@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:corvus"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="230" Margin="48,43,0,0" VerticalAlignment="Top" Width="439"/>
-
+        Title="MainWindow" Height="519.665" Width="1005.271">
+    <Grid Margin="0,0,2,1">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="424" Margin="10,10,0,0" VerticalAlignment="Top" Width="573"/>
+        <TextBlock x:Name="saveLog" HorizontalAlignment="Left" Height="424" Margin="610,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
     </Grid>
 </Window>

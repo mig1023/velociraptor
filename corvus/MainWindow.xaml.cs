@@ -20,16 +20,19 @@ using Emgu.CV.Structure;
 using System.Timers;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 
 namespace corvus
 {
     public partial class MainWindow : Window
     {
-        public static System.Timers.Timer video = new System.Timers.Timer(500);
+        public static System.Timers.Timer video = new System.Timers.Timer(600);
 
         public static VideoCapture capture = new VideoCapture();
 
         public static CascadeClassifier cascadeClassifier = new CascadeClassifier("frontalFace.xml");
+
+        public static int screenIndex = 0;
 
         public MainWindow()
         {
@@ -44,22 +47,28 @@ namespace corvus
         {
             using (var imageFrame = capture.QueryFrame().ToImage<Bgr, Byte>())
             {
+                screenIndex += 1;
+
                 if (imageFrame != null)
                 {
                     var grayFrame = imageFrame.Convert<Gray, byte>();
-                    var faces = cascadeClassifier.DetectMultiScale(imageFrame, 1.1, 10, System.Drawing.Size.Empty);
+                    var faces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, System.Drawing.Size.Empty);
+
+                    var newFrameRgb = imageFrame.Convert<Rgb, byte>();
 
                     foreach (var face in faces)
-                    {
-                        imageFrame.Draw(face, new Bgr(System.Drawing.Color.BurlyWood), 3);
-                    }
-
-                    var newFrame = imageFrame.Convert<Gray, byte>();
+                        newFrameRgb.Draw(face, new Rgb(System.Drawing.Color.LightSeaGreen), 1);
 
                     Application.Current.Dispatcher.BeginInvoke(new ThreadStart(delegate
                     {
                         MainWindow main = (MainWindow)Application.Current.MainWindow;
-                        main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrame);
+
+                        string saveScreen = (faces.Count() > 0 ? "image_" + screenIndex.ToString() + ".jpg" : String.Empty);
+
+                        main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrameRgb, saveScreen);
+
+                        if (saveScreen != String.Empty)
+                            main.saveLog.Text += saveScreen + "\n";
                     }));
                 }
 
@@ -71,11 +80,14 @@ namespace corvus
             [DllImport("gdi32")]
             private static extern int DeleteObject(IntPtr o);
 
-            public static BitmapSource ToBitmapSource(IImage image)
+            public static BitmapSource ToBitmapSource(IImage image, string saveScreen)
             {
                 using (Bitmap source = image.Bitmap)
                 {
                     IntPtr ptr = source.GetHbitmap();
+
+                    if (saveScreen != String.Empty)
+                        source.Save(saveScreen, ImageFormat.Jpeg);
 
                     BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                         ptr,
