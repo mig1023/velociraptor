@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:corvus"
         mc:Ignorable="d"
-        Title="MainWindow" Height="519.665" Width="1005.271">
+        Title="MainWindow" Height="519.665" Width="1005.271" Closing="Window_Closing">
     <Grid Margin="0,0,2,1">
         <Image x:Name="image" HorizontalAlignment="Left" Height="424" Margin="10,10,0,0" VerticalAlignment="Top" Width="573"/>
         <TextBlock x:Name="saveLog" HorizontalAlignment="Left" Height="424" Margin="610,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>

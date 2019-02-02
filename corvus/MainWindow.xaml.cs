@@ -30,6 +30,8 @@ namespace corvus
 
         public static VideoCapture capture = new VideoCapture();
 
+        public static VideoWriter writer;
+
         public static CascadeClassifier cascadeClassifier = new CascadeClassifier("frontalFace.xml");
 
         public static int screenIndex = 0;
@@ -38,6 +40,16 @@ namespace corvus
         {
             InitializeComponent();
 
+            System.Drawing.Size size = new System.Drawing.Size(capture.Width, capture.Height);
+
+            writer = new VideoWriter(
+                fileName: "video.avi",
+                compressionCode: VideoWriter.Fourcc('M', 'P', '4', 'V'),
+                fps: (int)capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameCount),
+                size: size,
+                isColor: true
+            );
+
             video.Elapsed += new ElapsedEventHandler(VideoFrameCapture);
             video.Enabled = true;
             video.Start();
@@ -45,6 +57,12 @@ namespace corvus
 
         public static void VideoFrameCapture(object obj, ElapsedEventArgs e)
         {
+            if (writer != null)
+            {
+                Mat m = capture.QueryFrame();
+                writer.Write(m);
+            }
+
             using (var imageFrame = capture.QueryFrame().ToImage<Bgr, Byte>())
             {
                 screenIndex += 1;
@@ -99,6 +117,12 @@ namespace corvus
                     return bs;
                 }
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            writer.Dispose();
+            writer = null;
         }
     }
 }
