@@ -22,11 +22,15 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using System.Windows.Interop;
+using System.IO;
 
 namespace corvus
 {
     public partial class MainWindow : Window
     {
+        static string PHOTO_DIR = "photo";
+        static string VIDEO_DIR = "video";
+
         public static VideoCapture capture = new VideoCapture();
 
         public static VideoWriter writer;
@@ -40,6 +44,13 @@ namespace corvus
         public MainWindow()
         {
             InitializeComponent();
+
+            if (!Directory.Exists(PHOTO_DIR))
+                Directory.CreateDirectory(PHOTO_DIR);
+
+            if (!Directory.Exists(VIDEO_DIR))
+                Directory.CreateDirectory(VIDEO_DIR);
+
             ComponentDispatcher.ThreadIdle += new System.EventHandler(VideoFrameCapture);
         }
 
@@ -58,7 +69,7 @@ namespace corvus
                 double framerate = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.Fps);
 
                 writer = new VideoWriter(
-                    fileName: "video" + screenIndex.ToString() + ".avi",
+                    fileName: VIDEO_DIR + "\\video" + screenIndex.ToString() + ".avi",
                     compressionCode: VideoWriter.Fourcc('D', 'I', 'V', '3'),
                     fps: 5,
                     size: size,
@@ -95,7 +106,7 @@ namespace corvus
 
                         if (main != null)
                         {
-                            string saveScreen = (faces.Count() > 0 ? "image_" + screenIndex.ToString() + ".jpg" : String.Empty);
+                            string saveScreen = (faces.Count() > 0 ? PHOTO_DIR + "\\image_" + screenIndex.ToString() + ".jpg" : String.Empty);
 
                             main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrameRgb, saveScreen);
 
@@ -119,8 +130,8 @@ namespace corvus
                 {
                     IntPtr ptr = source.GetHbitmap();
 
-                    //if (saveScreen != String.Empty)
-                    //    source.Save(saveScreen, ImageFormat.Jpeg);
+                    if (saveScreen != String.Empty)
+                        source.Save(saveScreen, ImageFormat.Jpeg);
 
                     BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                         ptr,
