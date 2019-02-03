@@ -35,6 +35,8 @@ namespace corvus
 
         public static int screenIndex = 0;
 
+        public static bool startVideo = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace corvus
                 Mat m = capture.QueryFrame();
                 writer.Write(m);
             }
-            else
+            else if (startVideo)
             {
                 System.Drawing.Size size = new System.Drawing.Size(capture.Width, capture.Height);
 
@@ -56,7 +58,7 @@ namespace corvus
                 double framerate = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.Fps);
 
                 writer = new VideoWriter(
-                    fileName: "video.avi",
+                    fileName: "video" + screenIndex.ToString() + ".avi",
                     compressionCode: VideoWriter.Fourcc('D', 'I', 'V', '3'),
                     fps: 5,
                     size: size,
@@ -73,6 +75,14 @@ namespace corvus
                 {
                     var grayFrame = imageFrame.Convert<Gray, byte>();
                     var faces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, System.Drawing.Size.Empty);
+
+                    if (faces.Count() > 0)
+                        startVideo = true;
+                    else
+                    {
+                        startVideo = false;
+                        writer = null;
+                    }
 
                     var newFrameRgb = imageFrame.Convert<Rgb, byte>();
 
@@ -126,7 +136,9 @@ namespace corvus
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            writer.Dispose();
+            if (writer != null)
+                writer.Dispose();
+
             writer = null;
         }
     }
