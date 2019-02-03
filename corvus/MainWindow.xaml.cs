@@ -21,13 +21,12 @@ using System.Timers;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using System.Windows.Interop;
 
 namespace corvus
 {
     public partial class MainWindow : Window
     {
-        public static System.Timers.Timer video = new System.Timers.Timer(600);
-
         public static VideoCapture capture = new VideoCapture();
 
         public static VideoWriter writer;
@@ -39,29 +38,32 @@ namespace corvus
         public MainWindow()
         {
             InitializeComponent();
-
-            System.Drawing.Size size = new System.Drawing.Size(capture.Width, capture.Height);
-
-            writer = new VideoWriter(
-                fileName: "video.avi",
-                compressionCode: VideoWriter.Fourcc('M', 'P', '4', 'V'),
-                fps: (int)capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameCount),
-                size: size,
-                isColor: true
-            );
-
-            video.Elapsed += new ElapsedEventHandler(VideoFrameCapture);
-            video.Enabled = true;
-            video.Start();
+            ComponentDispatcher.ThreadIdle += new System.EventHandler(VideoFrameCapture);
         }
 
-        public static void VideoFrameCapture(object obj, ElapsedEventArgs e)
+        public static void VideoFrameCapture(object obj, EventArgs e)
         {
             if (writer != null)
             {
                 Mat m = capture.QueryFrame();
                 writer.Write(m);
             }
+            else
+            {
+                System.Drawing.Size size = new System.Drawing.Size(capture.Width, capture.Height);
+
+                int framecount = (int)Math.Floor(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameCount));
+                double framerate = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.Fps);
+
+                writer = new VideoWriter(
+                    fileName: "video.avi",
+                    compressionCode: VideoWriter.Fourcc('D', 'I', 'V', '3'),
+                    fps: 5,
+                    size: size,
+                    isColor: true
+                );
+            }
+            
 
             using (var imageFrame = capture.QueryFrame().ToImage<Bgr, Byte>())
             {
@@ -81,12 +83,15 @@ namespace corvus
                     {
                         MainWindow main = (MainWindow)Application.Current.MainWindow;
 
-                        string saveScreen = (faces.Count() > 0 ? "image_" + screenIndex.ToString() + ".jpg" : String.Empty);
+                        if (main != null)
+                        {
+                            string saveScreen = (faces.Count() > 0 ? "image_" + screenIndex.ToString() + ".jpg" : String.Empty);
 
-                        main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrameRgb, saveScreen);
+                            main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrameRgb, saveScreen);
 
-                        if (saveScreen != String.Empty)
-                            main.saveLog.Text += saveScreen + "\n";
+                            if (saveScreen != String.Empty)
+                                main.saveLog.Text += saveScreen + "\n";
+                        }
                     }));
                 }
 
@@ -104,8 +109,8 @@ namespace corvus
                 {
                     IntPtr ptr = source.GetHbitmap();
 
-                    if (saveScreen != String.Empty)
-                        source.Save(saveScreen, ImageFormat.Jpeg);
+                    //if (saveScreen != String.Empty)
+                    //    source.Save(saveScreen, ImageFormat.Jpeg);
 
                     BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                         ptr,
