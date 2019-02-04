@@ -32,14 +32,14 @@ namespace corvus
         static string VIDEO_DIR = "video";
 
         public static VideoCapture capture = new VideoCapture();
-
         public static VideoWriter writer;
-
         public static CascadeClassifier cascadeClassifier = new CascadeClassifier("frontalFace.xml");
 
         public static int screenIndex = 0;
-
         public static bool startVideo = false;
+
+        static System.Windows.Media.Brush recordOn = System.Windows.Media.Brushes.DarkRed;
+        static System.Windows.Media.Brush recordOff = System.Windows.Media.Brushes.ForestGreen;
 
         public MainWindow()
         {
@@ -109,14 +109,10 @@ namespace corvus
                             string saveScreen = (faces.Count() > 0 ? PHOTO_DIR + "\\image_" + screenIndex.ToString() + ".jpg" : String.Empty);
 
                             main.image.Source = BitmapSourceConvert.ToBitmapSource(newFrameRgb, saveScreen);
-
-                            if (saveScreen != String.Empty)
-                                main.saveLog.Text += saveScreen + "\n";
+                            main.recordMarker.Background = (saveScreen != String.Empty ? recordOn : recordOff);
                         }
                     }));
                 }
-
-
             }
         }
         public static class BitmapSourceConvert

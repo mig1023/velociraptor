@@ -8,6 +8,6 @@
         Title="MainWindow" Height="519.665" Width="1005.271" Closing="Window_Closing">
     <Grid Margin="0,0,2,1">
         <Image x:Name="image" HorizontalAlignment="Left" Height="424" Margin="10,10,0,0" VerticalAlignment="Top" Width="573"/>
-        <TextBlock x:Name="saveLog" HorizontalAlignment="Left" Height="424" Margin="610,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBlock x:Name="recordMarker" HorizontalAlignment="Left" Height="20" Margin="608,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="20"/>
     </Grid>
 </Window>
