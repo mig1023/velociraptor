@@ -70,7 +70,7 @@ namespace corvus
 
                 writer = new VideoWriter(
                     fileName: VIDEO_DIR + "\\video" + screenIndex.ToString() + ".avi",
-                    compressionCode: VideoWriter.Fourcc('D', 'I', 'V', '3'),
+                    compressionCode: VideoWriter.Fourcc('M', 'P', '4', 'V'),
                     fps: 5,
                     size: size,
                     isColor: true
