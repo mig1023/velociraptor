@@ -27,7 +27,7 @@ namespace corvus
             main.gray.Margin = new Thickness(SystemParameters.PrimaryScreenWidth * -1, 0, 0, 0);
         }
 
-        public static void Move(Canvas moveCanvas, Canvas prevCanvas, moveDirection direction = moveDirection.horizontal)
+        public static void MoveCanvas(Canvas moveCanvas, Canvas prevCanvas, moveDirection direction = moveDirection.horizontal)
         {
             double left = (direction == moveDirection.horizontal ? 0 : moveCanvas.Margin.Left);
             double top = (direction == moveDirection.vertical ? 0 : moveCanvas.Margin.Top);
@@ -50,6 +50,20 @@ namespace corvus
             move.To = new Thickness(left, top, prevCanvas.Margin.Right, prevCanvas.Margin.Bottom);
 
             prevCanvas.BeginAnimation(FrameworkElement.MarginProperty, move);
+        }
+
+        public static void Move(object sender)
+        {
+            Control controlElement = (Control)sender;
+
+            string[] canvas = controlElement.Tag.ToString().Split(':');
+
+            Canvas from = (Canvas)controlElement.FindName(canvas[0]);
+            Canvas to = (Canvas)controlElement.FindName(canvas[1]);
+
+            moveDirection direction = (canvas.Length > 2 ? moveDirection.vertical : moveDirection.horizontal);
+
+            MoveCanvas(moveCanvas: to, prevCanvas: from, direction: direction);
         }
     }
 }
