@@ -57,5 +57,39 @@ namespace corvus
                 direction: Interface.moveDirection.vertical
             );
         }
+
+        private void toGreen_Click(object sender, RoutedEventArgs e)
+        {
+            Interface.Move(
+                moveCanvas: green,
+                prevCanvas: white,
+                direction: Interface.moveDirection.vertical
+            );
+        }
+
+        private void toWhiteFromGreen_Click(object sender, RoutedEventArgs e)
+        {
+            Interface.Move(
+                moveCanvas: white,
+                prevCanvas: green,
+                direction: Interface.moveDirection.vertical
+            );
+        }
+
+        private void toGray_Click(object sender, RoutedEventArgs e)
+        {
+            Interface.Move(
+                moveCanvas: gray,
+                prevCanvas: white
+            );
+        }
+
+        private void toWhiteFromGray_Click(object sender, RoutedEventArgs e)
+        {
+            Interface.Move(
+                moveCanvas: white,
+                prevCanvas: gray
+            );
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace corvus
             main.WindowState = WindowState.Maximized;
             main.WindowStyle = WindowStyle.None;
 
-            foreach (Canvas canvas in new List<Canvas> { main.white, main.red, main.blue })
+            foreach (Canvas canvas in new List<Canvas> { main.white, main.red, main.blue, main.green, main.gray })
             {
                 canvas.Width = SystemParameters.PrimaryScreenWidth;
                 canvas.Height = SystemParameters.PrimaryScreenHeight;
@@ -23,6 +23,8 @@ namespace corvus
 
             main.red.Margin = new Thickness(SystemParameters.PrimaryScreenWidth + 5, 0, 0, 0);
             main.blue.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight + 5, 0, 0);
+            main.green.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight * -1, 0, 0);
+            main.gray.Margin = new Thickness(SystemParameters.PrimaryScreenWidth * -1, 0, 0, 0);
         }
 
         public static void Move(Canvas moveCanvas, Canvas prevCanvas, moveDirection direction = moveDirection.horizontal)
@@ -31,7 +33,7 @@ namespace corvus
             double top = (direction == moveDirection.vertical ? 0 : moveCanvas.Margin.Top);
 
             ThicknessAnimation move = new ThicknessAnimation();
-            move.Duration = TimeSpan.FromSeconds(0.2);
+            move.Duration = TimeSpan.FromSeconds(0.4);
             move.From = moveCanvas.Margin;
 
             move.To = new Thickness(left, top, moveCanvas.Margin.Right, moveCanvas.Margin.Bottom);
