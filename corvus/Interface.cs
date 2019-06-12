@@ -29,68 +29,20 @@ namespace corvus
             currentCanvas = main.StartWindow;
         }
 
-        public static void DestroyCanvas(object sender, EventArgs e)
-        {
-            containerToRemove.Children.Remove(canvasToRemove);
-            containerToRemove.Children.Remove(currentCanvas);
-            main.RootWindow.Children.Add(currentCanvas);
-            currentCanvas.Margin = new Thickness(0, 0, 0, 0);
-            main.RootWindow.Children.Remove(containerToRemove);
-        }
-
-        public static void MoveCanvas(Canvas moveCanvas, Canvas prevCanvas, moveDirection direction)
-        {
-            double left = 0;
-            double top = 0;
-
-            ThicknessAnimation move = new ThicknessAnimation();
-            move.Duration = TimeSpan.FromSeconds(0.2);
-            move.From = moveCanvas.Margin;
-            move.To = new Thickness(left, top, moveCanvas.Margin.Right, moveCanvas.Margin.Bottom);
-
-            moveCanvas.BeginAnimation(FrameworkElement.MarginProperty, move);
-
-            switch (direction)
-            {
-                case moveDirection.horizontal_right:
-                    left = SystemParameters.PrimaryScreenWidth * -1;
-                    break;
-                case moveDirection.vertical_bottom:
-                    top = SystemParameters.PrimaryScreenHeight * -1;
-                    break;
-                case moveDirection.horizontal_left:
-                    left = SystemParameters.PrimaryScreenWidth;
-                    break;
-                case moveDirection.vertical_top:
-                    top = SystemParameters.PrimaryScreenHeight;
-                    break;
-            }
-
-            move.From = prevCanvas.Margin;
-
-            move.To = new Thickness(left, top, prevCanvas.Margin.Right, prevCanvas.Margin.Bottom);
-
-            prevCanvas.BeginAnimation(FrameworkElement.MarginProperty, move);
-
-            move.Completed += DestroyCanvas;
-        }
-
         public static void Move(moveDirection direction, Brush color)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
             double screenHeight = SystemParameters.PrimaryScreenHeight;
+            Thickness zeroPosition = new Thickness(0, 0, 0, 0);
 
-
-            /////////////////////////////
             if (containerToRemove != null)
             {
                 containerToRemove.Children.Remove(canvasToRemove);
                 containerToRemove.Children.Remove(currentCanvas);
                 main.RootWindow.Children.Add(currentCanvas);
-                currentCanvas.Margin = new Thickness(0, 0, 0, 0);
+                currentCanvas.Margin = zeroPosition;
                 main.RootWindow.Children.Remove(containerToRemove);
             }
-            //////////////////////////////////
 
             Canvas newCanvas = new Canvas();
             newCanvas.Background = color;
@@ -106,53 +58,48 @@ namespace corvus
             ThicknessAnimation move = new ThicknessAnimation();
             move.Duration = TimeSpan.FromSeconds(1);
 
-            switch (direction)
+            if ((direction == moveDirection.horizontal_right) || (direction == moveDirection.horizontal_left))
             {
-                case moveDirection.horizontal_right:
-                    containerCanvas.Width = screenWidth * 2;
-                    containerCanvas.Height = newCanvas.Height;
-                    containerCanvas.Margin = new Thickness(0, 0, 0, 0);
+                containerCanvas.Width = screenWidth * 2;
+                containerCanvas.Height = newCanvas.Height;
+
+                if (direction == moveDirection.horizontal_right)
+                {
+                    containerCanvas.Margin = zeroPosition;
                     newCanvas.Margin = new Thickness(screenWidth, 0, 0, 0);
-                    currentCanvas.Margin = new Thickness(0, 0, 0, 0);
-
-                    move.From = containerCanvas.Margin;
+                    currentCanvas.Margin = zeroPosition;
                     move.To = new Thickness(screenWidth * -1, 0, 0, 0);
-                    break;
-                case moveDirection.horizontal_left:
-                    containerCanvas.Width = screenWidth * 2;
-                    containerCanvas.Height = newCanvas.Height;
+                }
+                else
+                {
                     containerCanvas.Margin = new Thickness(screenWidth * -1, 0, 0, 0);
-                    newCanvas.Margin = new Thickness(0, 0, 0, 0);
+                    newCanvas.Margin = zeroPosition;
                     currentCanvas.Margin = new Thickness(screenWidth, 0, 0, 0);
+                    move.To = zeroPosition;
+                }
+            }
+            else
+            {
+                containerCanvas.Width = newCanvas.Width;
+                containerCanvas.Height = screenHeight * 2;
 
-                    move.From = containerCanvas.Margin;
-                    move.To = new Thickness(0, 0, 0, 0);
-                    break;
-
-                case moveDirection.vertical_bottom:
-                    containerCanvas.Width = newCanvas.Width;
-                    containerCanvas.Height = screenWidth * 2;
-                    containerCanvas.Margin = new Thickness(0, 0, 0, 0);
+                if (direction == moveDirection.vertical_top)
+                {
+                    containerCanvas.Margin = zeroPosition;
                     newCanvas.Margin = new Thickness(0, screenHeight, 0, 0);
-                    currentCanvas.Margin = new Thickness(0, 0, 0, 0);
-
-                    move.From = containerCanvas.Margin;
+                    currentCanvas.Margin = zeroPosition;
                     move.To = new Thickness(0, screenHeight * -1, 0, 0);
-                    break;
-
-                case moveDirection.vertical_top:
-                    containerCanvas.Width = newCanvas.Width;
-                    containerCanvas.Height = screenHeight * 2;
+                }
+                else
+                {
                     containerCanvas.Margin = new Thickness(0, screenHeight * -1, 0, 0);
-                    newCanvas.Margin = new Thickness(0, 0, 0, 0);
+                    newCanvas.Margin = zeroPosition;
                     currentCanvas.Margin = new Thickness(0, screenHeight, 0, 0);
-
-                    move.From = containerCanvas.Margin;
-                    move.To = new Thickness(0, 0, 0, 0);
-                    break;
+                    move.To = zeroPosition;
+                }
             }
 
-            //move.Completed += DestroyCanvas;
+            move.From = containerCanvas.Margin;
 
             Canvas.SetZIndex(newCanvas, 100);
             Canvas.SetZIndex(currentCanvas, 50);
