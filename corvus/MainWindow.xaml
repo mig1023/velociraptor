@@ -6,24 +6,8 @@
         xmlns:local="clr-namespace:corvus"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Canvas x:Name="white" HorizontalAlignment="Left" Height="320" Margin="0,1,0,-1" VerticalAlignment="Top" Width="517">
-            <Button x:Name="toRed" Content="red" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Tag="white:red" Click="tagMove"/>
-            <Button x:Name="toBlue" Content="blue" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="70" Tag="white:blue:vertical" Click="tagMove"/>
-            <Button x:Name="toGray" Content="gray" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="148" Canvas.Top="70" Tag="white:gray" Click="tagMove"/>
-            <Button x:Name="toGreen" Content="green" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="148" Canvas.Top="10" Tag="white:green:vertical" Click="tagMove"/>
-        </Canvas>
-        <Canvas x:Name="red" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="517" Background="#FFFF7575" Margin="518,1,-518,-1">
-            <Button x:Name="toWhite" Content="white" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Tag="red:white" Click="tagMove"/>
-        </Canvas>
-        <Canvas x:Name="blue" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="517" Background="#FFD8D9FF" Margin="1,321,-1,-321">
-            <Button x:Name="toWhiteFromBlue" Content="white" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Tag="blue:white:vertical" Click="tagMove"/>
-        </Canvas>
-        <Canvas x:Name="gray" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="517" Background="#FFA4A4A4" Margin="-522,1,0,-1">
-            <Button x:Name="toWhiteFromGray" Content="white" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Tag="gray:white" Click="tagMove" />
-        </Canvas>
-        <Canvas x:Name="green" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="517" Background="#FFD4FFCA" Margin="0,-319,0,0">
-            <Button x:Name="toWhiteFromGreen" Content="white" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Tag="green:white:vertical" Click="tagMove" />
-        </Canvas>
+    <Grid x:Name="RootWindow">
+        <Button x:Name="moveOn" Content="red" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Click="moveOn_Click"/>
+        <Canvas x:Name="StartWindow" HorizontalAlignment="Left" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="517"/>
     </Grid>
 </Window>
