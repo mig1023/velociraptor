@@ -9,6 +9,8 @@ namespace corvus
 {
     class Interface
     {
+        static Random r = new Random();
+
         public enum moveDirection { horizontal_left, horizontal_right, vertical_top, vertical_bottom };
 
         public static Canvas currentCanvas = null;
@@ -38,9 +40,8 @@ namespace corvus
             double top = 0;
 
             ThicknessAnimation move = new ThicknessAnimation();
-            move.Duration = TimeSpan.FromSeconds(1);
+            move.Duration = TimeSpan.FromSeconds(0.2);
             move.From = moveCanvas.Margin;
-
             move.To = new Thickness(left, top, moveCanvas.Margin.Right, moveCanvas.Margin.Bottom);
 
             moveCanvas.BeginAnimation(FrameworkElement.MarginProperty, move);
@@ -70,6 +71,15 @@ namespace corvus
             move.Completed += DestroyCanvas;
         }
 
+        private static void moveOn_Click(object sender, RoutedEventArgs e)
+        {
+            Brush randomBrush = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
+
+            Array values = Enum.GetValues(typeof(Interface.moveDirection));
+            Interface.moveDirection randomDirection = (Interface.moveDirection)values.GetValue(r.Next(values.Length));
+
+            Interface.Move(randomDirection, randomBrush);
+        }
         public static void Move(moveDirection direction, Brush color)
         {
             Canvas newCanvas = new Canvas();
@@ -81,16 +91,16 @@ namespace corvus
             switch (direction)
             {
                 case moveDirection.horizontal_right:
-                    newCanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth + 5, 0, 0, 0);
+                    newCanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth * 2, 0, 0, 0);
                     break;
                 case moveDirection.vertical_bottom:
-                    newCanvas.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight + 5, 0, 0);
+                    newCanvas.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight * 2, 0, 0);
                     break;
                 case moveDirection.horizontal_left:
-                    newCanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth * -1, 0, 0, 0);
+                    newCanvas.Margin = new Thickness(SystemParameters.PrimaryScreenWidth * -2, 0, 0, 0);
                     break;
                 case moveDirection.vertical_top:
-                    newCanvas.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight * -1, 0, 0);
+                    newCanvas.Margin = new Thickness(0, SystemParameters.PrimaryScreenHeight * -2, 0, 0);
                     break;
             }
 
