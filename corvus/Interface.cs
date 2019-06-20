@@ -29,7 +29,18 @@ namespace corvus
             currentCanvas = main.StartWindow;
         }
 
-        public static void Move(moveDirection direction, Brush color)
+        static void PageContentDummy(int n, ref Canvas canvas)
+        {
+            Label num = new Label();
+            num.Content = n.ToString();
+            num.FontSize = 100;
+            num.Foreground = Brushes.White;
+            num.Margin = new Thickness(100, 100, 0, 0);
+
+            canvas.Children.Add(num);
+        }
+
+        public static void Move(int n, moveDirection direction, Brush color)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
             double screenHeight = SystemParameters.PrimaryScreenHeight;
@@ -48,6 +59,8 @@ namespace corvus
             newCanvas.Background = color;
             newCanvas.Width = screenWidth;
             newCanvas.Height = screenHeight;
+
+            PageContentDummy(n, ref newCanvas);
 
             Canvas containerCanvas = new Canvas();
             main.RootWindow.Children.Add(containerCanvas);

@@ -18,6 +18,7 @@ namespace corvus
     public partial class MainWindow : Window
     {
         Random r = new Random();
+        static int n = 0;
 
         public MainWindow()
         {
@@ -35,7 +36,9 @@ namespace corvus
             Array values = Enum.GetValues(typeof(Interface.moveDirection));
             Interface.moveDirection randomDirection = (Interface.moveDirection)values.GetValue(r.Next(values.Length));
 
-            Interface.Move(randomDirection, randomBrush);
+            n += 1;
+
+            Interface.Move(n, randomDirection, randomBrush);
         }
     }
 }
