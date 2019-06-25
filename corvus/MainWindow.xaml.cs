@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace corvus
+namespace velociraptor
 {
     public partial class MainWindow : Window
     {
@@ -29,7 +29,7 @@ namespace corvus
             Interface.FullScreen();
         }
 
-        private void moveOn_Click(object sender, RoutedEventArgs e)
+        public void moveOn_Click(object sender, RoutedEventArgs e)
         {
             Brush randomBrush = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
 
@@ -37,6 +37,8 @@ namespace corvus
             Interface.moveDirection randomDirection = (Interface.moveDirection)values.GetValue(r.Next(values.Length));
 
             n += 1;
+
+
 
             Interface.Move(n, randomDirection, randomBrush);
         }

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace corvus
+namespace velociraptor
 {
     class Interface
     {
@@ -38,6 +38,15 @@ namespace corvus
             num.Margin = new Thickness(100, 100, 0, 0);
 
             canvas.Children.Add(num);
+
+            Button but = new Button();
+            but.Content = "next";
+            but.Click += main.moveOn_Click;
+            but.Width = 150;
+            but.Height = 50;
+            but.Margin = new Thickness(100, 250, 0, 0);
+
+            canvas.Children.Add(but);
         }
 
         public static void Move(int n, moveDirection direction, Brush color)
@@ -119,7 +128,7 @@ namespace corvus
             Canvas.SetZIndex(main.moveOn, 150);
 
             containerCanvas.BeginAnimation(FrameworkElement.MarginProperty, move);
-            
+
             containerToRemove = containerCanvas;
             canvasToRemove = currentCanvas;
             currentCanvas = newCanvas;

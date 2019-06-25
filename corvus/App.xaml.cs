@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace corvus
+namespace velociraptor
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

@@ -1,13 +1,14 @@
-﻿<Window x:Class="corvus.MainWindow"
+﻿<Window x:Class="velociraptor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:corvus"
+        xmlns:local="clr-namespace:velociraptor"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid x:Name="RootWindow">
-        <Button x:Name="moveOn" Content="red" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="133" Canvas.Left="10" Canvas.Top="10" Click="moveOn_Click"/>
-        <Canvas x:Name="StartWindow" HorizontalAlignment="Left" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="517"/>
+        <Canvas x:Name="StartWindow" HorizontalAlignment="Left" Height="320" Margin="0,0,0,0" VerticalAlignment="Top" Width="517">
+            <Button x:Name="moveOn" Content="start" HorizontalAlignment="Left" Margin="100,250,0,0" Height="50" VerticalAlignment="Top" Width="150" Canvas.Left="10" Canvas.Top="10" Click="moveOn_Click"/>
+        </Canvas>
     </Grid>
 </Window>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace corvus.Properties
+namespace velociraptor.Properties
 {
 
 

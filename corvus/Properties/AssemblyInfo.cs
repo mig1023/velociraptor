@@ -7,11 +7,11 @@ using System.Windows;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("corvus")]
+[assembly: AssemblyTitle("velociraptor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MICROSOFT")]
-[assembly: AssemblyProduct("corvus")]
+[assembly: AssemblyProduct("velociraptor")]
 [assembly: AssemblyCopyright("Copyright © MICROSOFT 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
