@@ -39,14 +39,32 @@ namespace velociraptor
 
             canvas.Children.Add(num);
 
-            Button but = new Button();
-            but.Content = "next";
-            but.Click += main.moveOn_Click;
-            but.Width = 150;
-            but.Height = 50;
-            but.Margin = new Thickness(100, 250, 0, 0);
+            Label text = new Label();
+            text.Content = "information text";
+            text.FontSize = 25;
+            text.Foreground = Brushes.White;
+            text.Margin = new Thickness(100, 230, 0, 0);
 
-            canvas.Children.Add(but);
+            canvas.Children.Add(text);
+
+            int position = 0;
+            int el_number = r.Next(1, 8);
+
+            for(int a = 0; a < el_number; a++)
+            {
+                Button but = new Button();
+                but.Content = "next";
+                but.Click += main.moveOn_Click;
+                but.Width = 150;
+                but.Height = 50;
+
+                but.Margin = new Thickness(100 + position, 280, 0, 0);
+
+                canvas.Children.Add(but);
+
+                position += (int)but.Width + 10;
+            }
+
         }
 
         public static void Move(int n, moveDirection direction, Brush color)

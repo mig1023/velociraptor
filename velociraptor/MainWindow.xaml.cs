@@ -25,7 +25,6 @@ namespace velociraptor
             InitializeComponent();
 
             Interface.main = this;
-
             Interface.FullScreen();
         }
 
