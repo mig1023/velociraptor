@@ -25,7 +25,10 @@ namespace velociraptor
             InitializeComponent();
 
             Interface.main = this;
+
             Interface.FullScreen();
+
+            Pages.LoadPages();
         }
 
         public void moveOn_Click(object sender, RoutedEventArgs e)
@@ -35,11 +38,21 @@ namespace velociraptor
             Array values = Enum.GetValues(typeof(Interface.moveDirection));
             Interface.moveDirection randomDirection = (Interface.moveDirection)values.GetValue(r.Next(values.Length));
 
-            n += 1;
+            Button clickedButton = sender as Button;
 
+            int gotoIndex = 1;
 
+            if (clickedButton.Tag != null)
+            {
+                int index = 0;
 
-            Interface.Move(n, randomDirection, randomBrush);
+                bool indexExists = int.TryParse(clickedButton.Tag.ToString(), out index);
+
+                if (indexExists && (index != 0))
+                    gotoIndex = index;
+            }
+
+            Interface.Move(gotoIndex, randomDirection, randomBrush);
         }
     }
 }

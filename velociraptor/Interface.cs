@@ -29,18 +29,18 @@ namespace velociraptor
             currentCanvas = main.StartWindow;
         }
 
-        static void PageContentDummy(int n, ref Canvas canvas)
+        static void PageContent(Pages page, ref Canvas canvas)
         {
-            Label num = new Label();
-            num.Content = n.ToString();
-            num.FontSize = 100;
-            num.Foreground = Brushes.White;
-            num.Margin = new Thickness(100, 100, 0, 0);
+            Label title = new Label();
+            title.Content = page.Title;
+            title.FontSize = 100;
+            title.Foreground = Brushes.White;
+            title.Margin = new Thickness(100, 100, 0, 0);
 
-            canvas.Children.Add(num);
+            canvas.Children.Add(title);
 
             Label text = new Label();
-            text.Content = "information text";
+            text.Content = page.MainText;
             text.FontSize = 25;
             text.Foreground = Brushes.White;
             text.Margin = new Thickness(100, 230, 0, 0);
@@ -50,10 +50,11 @@ namespace velociraptor
             int position = 0;
             int el_number = r.Next(1, 8);
 
-            for(int a = 0; a < el_number; a++)
+            for (int a = 0; a < page.ButtonsNames.Count; a++)
             {
                 Button but = new Button();
-                but.Content = "next";
+                but.Content = page.ButtonsNames[a];
+                but.Tag = page.ButtonsGoto[a];
                 but.Click += main.moveOn_Click;
                 but.Width = 150;
                 but.Height = 50;
@@ -87,7 +88,7 @@ namespace velociraptor
             newCanvas.Width = screenWidth;
             newCanvas.Height = screenHeight;
 
-            PageContentDummy(n, ref newCanvas);
+            PageContent(Pages.FindPageByIndex(n), ref newCanvas);
 
             Canvas containerCanvas = new Canvas();
             main.RootWindow.Children.Add(containerCanvas);

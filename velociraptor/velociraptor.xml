@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages>
+	<page>
+		<index>1</index>
+		<title>Page 1</title>
+		<mainText>Go to page 2, 3 or 4</mainText>
+		<buttons>
+			<button>
+				<text>go to page 2</text>
+				<goto>2</goto>
+			</button>
+			<button>
+				<text>go to page 3</text>
+				<goto>3</goto>
+			</button>
+			<button>
+				<text>go to page 4</text>
+				<goto>4</goto>
+			</button>
+		</buttons>
+	</page>
+	<page>
+		<index>2</index>
+		<title>Page 2</title>
+		<mainText>Ok, this is page 2</mainText>
+		<buttons>
+			<button>
+				<text>return to page 1</text>
+				<goto>1</goto>
+			</button>
+		</buttons>
+	</page>
+	<page>
+		<index>3</index>
+		<title>Page 3</title>
+		<mainText>Ok, this is page 3</mainText>
+		<buttons>
+			<button>
+				<text>return to page 1</text>
+				<goto>1</goto>
+			</button>
+		</buttons>
+	</page>
+	<page>
+		<index>4</index>
+		<title>Page 4</title>
+		<mainText>Ok, this is page 4</mainText>
+		<buttons>
+			<button>
+				<text>return to page 1</text>
+				<goto>1</goto>
+			</button>
+		</buttons>
+	</page>
+</pages>
