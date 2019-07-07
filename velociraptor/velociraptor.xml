@@ -2,6 +2,7 @@
 <pages>
 	<page>
 		<index>1</index>
+		<background>DodgerBlue</background>
 		<title>Page 1</title>
 		<mainText>Go to page 2, 3 or 4</mainText>
 		<buttons>
@@ -21,6 +22,7 @@
 	</page>
 	<page>
 		<index>2</index>
+		<background>LimeGreen</background>
 		<title>Page 2</title>
 		<mainText>Ok, this is page 2</mainText>
 		<buttons>
@@ -32,6 +34,7 @@
 	</page>
 	<page>
 		<index>3</index>
+		<background>RoyalBlue</background>
 		<title>Page 3</title>
 		<mainText>Ok, this is page 3</mainText>
 		<buttons>
@@ -43,6 +46,7 @@
 	</page>
 	<page>
 		<index>4</index>
+		<background>SteelBlue</background>
 		<title>Page 4</title>
 		<mainText>Ok, this is page 4</mainText>
 		<buttons>

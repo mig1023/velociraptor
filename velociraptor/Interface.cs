@@ -31,6 +31,8 @@ namespace velociraptor
 
         static void PageContent(Pages page, ref Canvas canvas)
         {
+            canvas.Background = page.BackColor;
+
             Label title = new Label();
             title.Content = page.Title;
             title.FontSize = 100;
@@ -68,7 +70,7 @@ namespace velociraptor
 
         }
 
-        public static void Move(int n, moveDirection direction, Brush color)
+        public static void Move(int n, moveDirection direction)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
             double screenHeight = SystemParameters.PrimaryScreenHeight;
@@ -84,7 +86,7 @@ namespace velociraptor
             }
 
             Canvas newCanvas = new Canvas();
-            newCanvas.Background = color;
+            //newCanvas.Background = color;
             newCanvas.Width = screenWidth;
             newCanvas.Height = screenHeight;
 

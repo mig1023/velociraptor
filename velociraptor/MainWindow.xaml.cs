@@ -33,8 +33,6 @@ namespace velociraptor
 
         public void moveOn_Click(object sender, RoutedEventArgs e)
         {
-            Brush randomBrush = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
-
             Array values = Enum.GetValues(typeof(Interface.moveDirection));
             Interface.moveDirection randomDirection = (Interface.moveDirection)values.GetValue(r.Next(values.Length));
 
@@ -52,7 +50,7 @@ namespace velociraptor
                     gotoIndex = index;
             }
 
-            Interface.Move(gotoIndex, randomDirection, randomBrush);
+            Interface.Move(gotoIndex, randomDirection);
         }
     }
 }

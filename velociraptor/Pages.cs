@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Xml;
 
 namespace velociraptor
@@ -14,8 +15,11 @@ namespace velociraptor
 
         public string Title;
         public string MainText;
+
         public List<string> ButtonsNames = new List<string>();
         public List<int> ButtonsGoto = new List<int>();
+
+        public Brush BackColor;
 
         static List<Pages> AllPages = new List<Pages>(); 
 
@@ -31,6 +35,8 @@ namespace velociraptor
                 page.Index = int.Parse(xmlPage["index"].InnerText);
                 page.Title = xmlPage["title"].InnerText;
                 page.MainText = xmlPage["mainText"].InnerText;
+
+                page.BackColor = (SolidColorBrush)new BrushConverter().ConvertFromString(xmlPage["background"].InnerText);
 
                 foreach (XmlNode xmlButtons in xmlPage.SelectNodes("buttons/button"))
                 {
