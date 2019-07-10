@@ -33,24 +33,70 @@ namespace velociraptor
         {
             canvas.Background = page.BackColor;
 
+            Grid DynamicGrid = new Grid();
+            DynamicGrid.Width = canvas.Width - 200;
+            //DynamicGrid.ShowGridLines = true;
+            DynamicGrid.Margin = new Thickness(100, 100, 0, 0);
+            DynamicGrid.HorizontalAlignment = HorizontalAlignment.Left;
+            DynamicGrid.VerticalAlignment = VerticalAlignment.Top;
+            //DynamicGrid.Background = Brushes.Red;
+
+            ColumnDefinition gridCol1 = new ColumnDefinition();
+            DynamicGrid.ColumnDefinitions.Add(gridCol1);
+            //gridCol1.Width = new GridLength(DynamicGrid.Width);
+
+            RowDefinition gridRow1 = new RowDefinition();
+            DynamicGrid.RowDefinitions.Add(gridRow1);
+
+            RowDefinition gridRow2 = new RowDefinition();
+            DynamicGrid.RowDefinitions.Add(gridRow2);
+
+            RowDefinition gridRow3 = new RowDefinition();
+            DynamicGrid.RowDefinitions.Add(gridRow3);
+
+
             Label title = new Label();
             title.Content = page.Title;
             title.FontSize = 100;
             title.Foreground = Brushes.White;
-            title.Margin = new Thickness(100, 100, 0, 0);
+            //title.Background = Brushes.Yellow;
+            //title.Margin = new Thickness(100, 100, 0, 0);
 
-            canvas.Children.Add(title);
+            //canvas.Children.Add(title);
+            canvas.Children.Add(DynamicGrid);
 
-            Label text = new Label();
-            text.Content = page.MainText;
+            Grid.SetRow(title, 0);
+            Grid.SetColumn(title, 0);
+
+            DynamicGrid.Children.Add(title);
+
+            TextBlock text = new TextBlock();
+            text.Text = page.MainText;
+            text.Width = canvas.Width - 200;
+            text.TextWrapping = TextWrapping.Wrap;
             text.FontSize = 25;
             text.Foreground = Brushes.White;
-            text.Margin = new Thickness(100, 230, 0, 0);
+            //text.Margin = new Thickness(100, 230, 0, 0);
 
-            canvas.Children.Add(text);
+            //canvas.Children.Add(text);
+
+            Grid.SetRow(text, 1);
+            Grid.SetColumn(text, 0);
+
+            DynamicGrid.Children.Add(text);
 
             int position = 0;
-            int el_number = r.Next(1, 8);
+
+            StackPanel buttonPlace = new StackPanel();
+            buttonPlace.Width = DynamicGrid.Width;
+            buttonPlace.Height = 65;
+            //buttonPlace.Background = Brushes.Gray;
+            buttonPlace.Orientation = Orientation.Horizontal;
+
+            Grid.SetRow(buttonPlace, 2);
+            Grid.SetColumn(buttonPlace, 0);
+
+            DynamicGrid.Children.Add(buttonPlace);
 
             for (int a = 0; a < page.ButtonsNames.Count; a++)
             {
@@ -61,9 +107,11 @@ namespace velociraptor
                 but.Width = 150;
                 but.Height = 50;
 
-                but.Margin = new Thickness(100 + position, 280, 0, 0);
+                but.Margin = new Thickness(0, 15, 15, 0);
 
-                canvas.Children.Add(but);
+                //canvas.Children.Add(but);
+
+                buttonPlace.Children.Add(but);
 
                 position += (int)but.Width + 10;
             }
