@@ -23,7 +23,7 @@
 	<page>
 		<index>2</index>
 		<background>LimeGreen</background>
-		<title>Page 2</title>
+		<title>Long-long-long creative header</title>
 		<mainText>Ok, this is page 2</mainText>
 		<buttons>
 			<button>
@@ -36,7 +36,7 @@
 		<index>3</index>
 		<background>RoyalBlue</background>
 		<title>Page 3</title>
-		<mainText>Ok, this is page 3</mainText>
+		<mainText>Ok, this is page 3. This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</mainText>
 		<buttons>
 			<button>
 				<text>return to page 1</text>

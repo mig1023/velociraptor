@@ -35,15 +35,12 @@ namespace velociraptor
 
             Grid DynamicGrid = new Grid();
             DynamicGrid.Width = canvas.Width - 200;
-            //DynamicGrid.ShowGridLines = true;
             DynamicGrid.Margin = new Thickness(100, 100, 0, 0);
             DynamicGrid.HorizontalAlignment = HorizontalAlignment.Left;
             DynamicGrid.VerticalAlignment = VerticalAlignment.Top;
-            //DynamicGrid.Background = Brushes.Red;
 
             ColumnDefinition gridCol1 = new ColumnDefinition();
             DynamicGrid.ColumnDefinitions.Add(gridCol1);
-            //gridCol1.Width = new GridLength(DynamicGrid.Width);
 
             RowDefinition gridRow1 = new RowDefinition();
             DynamicGrid.RowDefinitions.Add(gridRow1);
@@ -59,10 +56,8 @@ namespace velociraptor
             title.Content = page.Title;
             title.FontSize = 100;
             title.Foreground = Brushes.White;
-            //title.Background = Brushes.Yellow;
-            //title.Margin = new Thickness(100, 100, 0, 0);
+            title.Margin = new Thickness(-15, 0, 0, 0);
 
-            //canvas.Children.Add(title);
             canvas.Children.Add(DynamicGrid);
 
             Grid.SetRow(title, 0);
@@ -76,9 +71,6 @@ namespace velociraptor
             text.TextWrapping = TextWrapping.Wrap;
             text.FontSize = 25;
             text.Foreground = Brushes.White;
-            //text.Margin = new Thickness(100, 230, 0, 0);
-
-            //canvas.Children.Add(text);
 
             Grid.SetRow(text, 1);
             Grid.SetColumn(text, 0);
@@ -89,8 +81,7 @@ namespace velociraptor
 
             StackPanel buttonPlace = new StackPanel();
             buttonPlace.Width = DynamicGrid.Width;
-            buttonPlace.Height = 65;
-            //buttonPlace.Background = Brushes.Gray;
+            buttonPlace.Height = 85;
             buttonPlace.Orientation = Orientation.Horizontal;
 
             Grid.SetRow(buttonPlace, 2);
@@ -104,12 +95,11 @@ namespace velociraptor
                 but.Content = page.ButtonsNames[a];
                 but.Tag = page.ButtonsGoto[a];
                 but.Click += main.moveOn_Click;
-                but.Width = 150;
-                but.Height = 50;
+                but.Width = 250;
+                but.Height = 70;
+                but.FontSize = 20;
 
                 but.Margin = new Thickness(0, 15, 15, 0);
-
-                //canvas.Children.Add(but);
 
                 buttonPlace.Children.Add(but);
 
@@ -134,7 +124,6 @@ namespace velociraptor
             }
 
             Canvas newCanvas = new Canvas();
-            //newCanvas.Background = color;
             newCanvas.Width = screenWidth;
             newCanvas.Height = screenHeight;
 
