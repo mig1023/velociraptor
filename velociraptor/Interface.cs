@@ -11,6 +11,8 @@ namespace velociraptor
     {
         static Random r = new Random();
 
+        const int MAX_BUTTONS_IN_LINE = 3;
+
         public enum moveDirection { horizontal_left, horizontal_right, vertical_top, vertical_bottom };
 
         public static Canvas currentCanvas = null;
@@ -33,6 +35,9 @@ namespace velociraptor
         {
             canvas.Background = page.BackColor;
 
+            double buttonsInLine = (double)page.ButtonsNames.Count / MAX_BUTTONS_IN_LINE;
+            int buttonsLine = (int)Math.Ceiling(buttonsInLine);
+
             Grid DynamicGrid = new Grid();
             DynamicGrid.Width = canvas.Width - 200;
             DynamicGrid.Margin = new Thickness(100, 100, 0, 0);
@@ -48,9 +53,11 @@ namespace velociraptor
             RowDefinition gridRow2 = new RowDefinition();
             DynamicGrid.RowDefinitions.Add(gridRow2);
 
-            RowDefinition gridRow3 = new RowDefinition();
-            DynamicGrid.RowDefinitions.Add(gridRow3);
-
+            for (int a = 0; a < buttonsLine; a += 1)
+            {
+                RowDefinition gridRow3 = new RowDefinition();
+                DynamicGrid.RowDefinitions.Add(gridRow3);
+            }
 
             Label title = new Label();
             title.Content = page.Title;
@@ -77,35 +84,48 @@ namespace velociraptor
 
             DynamicGrid.Children.Add(text);
 
-            int position = 0;
+            int currentButton = 0;
 
-            StackPanel buttonPlace = new StackPanel();
-            buttonPlace.Width = DynamicGrid.Width;
-            buttonPlace.Height = 85;
-            buttonPlace.Orientation = Orientation.Horizontal;
-
-            Grid.SetRow(buttonPlace, 2);
-            Grid.SetColumn(buttonPlace, 0);
-
-            DynamicGrid.Children.Add(buttonPlace);
-
-            for (int a = 0; a < page.ButtonsNames.Count; a++)
+            for (int a = 0; a < buttonsLine; a++)
             {
-                Button but = new Button();
-                but.Content = page.ButtonsNames[a];
-                but.Tag = page.ButtonsGoto[a];
-                but.Click += main.moveOn_Click;
-                but.Width = 250;
-                but.Height = 70;
-                but.FontSize = 20;
+                StackPanel buttonPlace = new StackPanel();
+                buttonPlace.Width = DynamicGrid.Width;
+                buttonPlace.Height = 85;
+                buttonPlace.Orientation = Orientation.Horizontal;
 
-                but.Margin = new Thickness(0, 15, 15, 0);
+                Grid.SetRow(buttonPlace, 2 + a);
+                Grid.SetColumn(buttonPlace, 0);
 
-                buttonPlace.Children.Add(but);
+                DynamicGrid.Children.Add(buttonPlace);
 
-                position += (int)but.Width + 10;
+                int position = 0;
+
+                int buttonInThisLine = currentButton;
+
+                int maxButtonInThisLine = page.ButtonsNames.Count - currentButton;
+
+                if (maxButtonInThisLine > MAX_BUTTONS_IN_LINE)
+                    maxButtonInThisLine = MAX_BUTTONS_IN_LINE;
+
+                for (int b = buttonInThisLine; b < (buttonInThisLine + maxButtonInThisLine); b++)
+                {
+                    currentButton += 1;
+
+                    Button but = new Button();
+                    but.Content = page.ButtonsNames[b];
+                    but.Tag = page.ButtonsGoto[b];
+                    but.Click += main.moveOn_Click;
+                    but.Width = 250;
+                    but.Height = 70;
+                    but.FontSize = 20;
+
+                    but.Margin = new Thickness(0, 15, 15, 0);
+
+                    buttonPlace.Children.Add(but);
+
+                    position += (int)but.Width + 10;
+                }
             }
-
         }
 
         public static void Move(int n, moveDirection direction)

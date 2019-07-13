@@ -18,7 +18,6 @@ namespace velociraptor
     public partial class MainWindow : Window
     {
         Random r = new Random();
-        static int n = 0;
 
         public MainWindow()
         {
