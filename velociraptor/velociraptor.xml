@@ -38,10 +38,6 @@
 				<text>3. go to page 3</text>
 				<goto>3</goto>
 			</button>
-			<button>
-				<text>3. go to page 4</text>
-				<goto>4</goto>
-			</button>
 		</buttons>
 	</page>
 	<page>

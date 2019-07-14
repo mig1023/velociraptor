@@ -12,6 +12,8 @@ namespace velociraptor
         static Random r = new Random();
 
         const int MAX_BUTTONS_IN_LINE = 3;
+        const int BORDER = 100;
+        const int BUTTON_PADDING = 10;
 
         public enum moveDirection { horizontal_left, horizontal_right, vertical_top, vertical_bottom };
 
@@ -39,8 +41,8 @@ namespace velociraptor
             int buttonsLine = (int)Math.Ceiling(buttonsInLine);
 
             Grid DynamicGrid = new Grid();
-            DynamicGrid.Width = canvas.Width - 200;
-            DynamicGrid.Margin = new Thickness(100, 100, 0, 0);
+            DynamicGrid.Width = canvas.Width - (BORDER * 2);
+            DynamicGrid.Margin = new Thickness(BORDER, BORDER, 0, 0);
             DynamicGrid.HorizontalAlignment = HorizontalAlignment.Left;
             DynamicGrid.VerticalAlignment = VerticalAlignment.Top;
 
@@ -74,7 +76,7 @@ namespace velociraptor
 
             TextBlock text = new TextBlock();
             text.Text = page.MainText;
-            text.Width = canvas.Width - 200;
+            text.Width = canvas.Width - (BORDER * 2);
             text.TextWrapping = TextWrapping.Wrap;
             text.FontSize = 25;
             text.Foreground = Brushes.White;
@@ -107,6 +109,11 @@ namespace velociraptor
                 if (maxButtonInThisLine > MAX_BUTTONS_IN_LINE)
                     maxButtonInThisLine = MAX_BUTTONS_IN_LINE;
 
+                double buttonWidth = ((canvas.Width - (BORDER * 2)) / maxButtonInThisLine) - BUTTON_PADDING;
+
+                if (page.ButtonsNames.Count == 1)
+                    buttonWidth = ((canvas.Width - (BORDER * 2)) / 2) - BUTTON_PADDING;
+
                 for (int b = buttonInThisLine; b < (buttonInThisLine + maxButtonInThisLine); b++)
                 {
                     currentButton += 1;
@@ -115,7 +122,7 @@ namespace velociraptor
                     but.Content = page.ButtonsNames[b];
                     but.Tag = page.ButtonsGoto[b];
                     but.Click += main.moveOn_Click;
-                    but.Width = 250;
+                    but.Width = buttonWidth;
                     but.Height = 70;
                     but.FontSize = 20;
 
@@ -123,7 +130,7 @@ namespace velociraptor
 
                     buttonPlace.Children.Add(but);
 
-                    position += (int)but.Width + 10;
+                    position += (int)but.Width + BUTTON_PADDING;
                 }
             }
         }
