@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 namespace velociraptor
 {
-    public partial class MainWindow : Window
+    public partial class Screen : Window
     {
         Random r = new Random();
 
-        public MainWindow()
+        public Screen()
         {
             InitializeComponent();
 

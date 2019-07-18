@@ -20,7 +20,7 @@ namespace velociraptor
         public static Canvas currentCanvas = null;
         public static Canvas canvasToRemove = null;
         public static Canvas containerToRemove = null;
-        public static MainWindow main = null;
+        public static Screen main = null;
 
         public static void FullScreen()
         {
