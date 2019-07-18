@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages>
 	<page>
-		<index>1</index>
+		<index>START</index>
 		<background>DodgerBlue</background>
 		<title>Page 1</title>
 		<mainText>Go to page 2, 3 or 4</mainText>
@@ -48,7 +48,7 @@
 		<buttons>
 			<button>
 				<text>return to page 1</text>
-				<goto>1</goto>
+				<goto>START</goto>
 			</button>
 		</buttons>
 	</page>
@@ -60,7 +60,7 @@
 		<buttons>
 			<button>
 				<text>return to page 1</text>
-				<goto>1</goto>
+				<goto>START</goto>
 			</button>
 		</buttons>
 	</page>
@@ -72,7 +72,7 @@
 		<buttons>
 			<button>
 				<text>return to page 1</text>
-				<goto>1</goto>
+				<goto>START</goto>
 			</button>
 		</buttons>
 	</page>

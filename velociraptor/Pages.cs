@@ -11,13 +11,13 @@ namespace velociraptor
 {
     class Pages
     {
-        public int Index;
+        public string Index;
 
         public string Title;
         public string MainText;
 
         public List<string> ButtonsNames = new List<string>();
-        public List<int> ButtonsGoto = new List<int>();
+        public List<string> ButtonsGoto = new List<string>();
 
         public Brush BackColor;
 
@@ -32,7 +32,7 @@ namespace velociraptor
             {
                 Pages page = new Pages();
 
-                page.Index = int.Parse(xmlPage["index"].InnerText);
+                page.Index = xmlPage["index"].InnerText;
                 page.Title = xmlPage["title"].InnerText;
                 page.MainText = xmlPage["mainText"].InnerText;
 
@@ -41,14 +41,14 @@ namespace velociraptor
                 foreach (XmlNode xmlButtons in xmlPage.SelectNodes("buttons/button"))
                 {
                     page.ButtonsNames.Add(xmlButtons["text"].InnerText);
-                    page.ButtonsGoto.Add(int.Parse(xmlButtons["goto"].InnerText));
+                    page.ButtonsGoto.Add(xmlButtons["goto"].InnerText);
                 }
 
                 AllPages.Add(page);
             }
         }
 
-        public static Pages FindPageByIndex(int index)
+        public static Pages FindPageByIndex(string index)
         {
             foreach(Pages page in AllPages)
                 if (page.Index == index)

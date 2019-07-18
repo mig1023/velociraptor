@@ -135,7 +135,7 @@ namespace velociraptor
             }
         }
 
-        public static void Move(int n, moveDirection direction)
+        public static void Move(string page, moveDirection direction)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
             double screenHeight = SystemParameters.PrimaryScreenHeight;
@@ -154,7 +154,7 @@ namespace velociraptor
             newCanvas.Width = screenWidth;
             newCanvas.Height = screenHeight;
 
-            PageContent(Pages.FindPageByIndex(n), ref newCanvas);
+            PageContent(Pages.FindPageByIndex(page), ref newCanvas);
 
             Canvas containerCanvas = new Canvas();
             main.RootWindow.Children.Add(containerCanvas);

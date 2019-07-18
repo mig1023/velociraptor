@@ -37,17 +37,10 @@ namespace velociraptor
 
             Button clickedButton = sender as Button;
 
-            int gotoIndex = 1;
+            string gotoIndex = "START";
 
             if (clickedButton.Tag != null)
-            {
-                int index = 0;
-
-                bool indexExists = int.TryParse(clickedButton.Tag.ToString(), out index);
-
-                if (indexExists && (index != 0))
-                    gotoIndex = index;
-            }
+                gotoIndex = clickedButton.Tag.ToString();
 
             Interface.Move(gotoIndex, randomDirection);
         }
