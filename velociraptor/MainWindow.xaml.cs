@@ -42,6 +42,7 @@ namespace velociraptor
             if (clickedButton.Tag != null)
                 gotoIndex = clickedButton.Tag.ToString();
 
+            History.Line.Add(new History(gotoIndex));
             Interface.Move(gotoIndex, randomDirection);
         }
     }
