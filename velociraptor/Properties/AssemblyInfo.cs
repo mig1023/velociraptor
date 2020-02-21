@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("velociraptor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MICROSOFT")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("velociraptor")]
-[assembly: AssemblyCopyright("Copyright © MICROSOFT 2019")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
