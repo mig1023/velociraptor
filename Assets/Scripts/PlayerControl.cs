@@ -13,17 +13,9 @@ public class PlayerControl : MonoBehaviour
     {
 		if (moveUp == KeyCode.None)
 		{
-			float move;
-
 			float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
 			float playerPos = GetComponent<Rigidbody2D>().transform.position.y;
-
-			if (ballPos > playerPos)
-				move = 5;
-			else if (ballPos < playerPos)
-				move = -5;
-			else
-				move = 0;
+			float move = ballPos > playerPos ? 5 : -5;
 
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, move);
 		}
