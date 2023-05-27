@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
 	public KeyCode moveUp;
-    public KeyCode moveDown;
+	public KeyCode moveDown;
 
-    public float speed = 10;
+	public float speed = 10;
 	
-    void Update()
-    {
+	void Update()
+	{
 		if (moveUp == KeyCode.None)
 		{
 			float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
@@ -30,5 +30,5 @@ public class PlayerControl : MonoBehaviour
 			else if (GetComponent<Rigidbody2D>().velocity.y != 0)
 				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		}
-    }
+	}
 }
