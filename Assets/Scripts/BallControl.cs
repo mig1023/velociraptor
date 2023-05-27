@@ -11,19 +11,7 @@ public class BallControl : MonoBehaviour
 
     void Update()
     {
-		float move;
 
-		float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
-		float playerPos = GameObject.Find("LeftPlayer").GetComponent<Rigidbody2D>().transform.position.y;
-
-		if (ballPos > playerPos)
-			move = 5;
-		else if (ballPos < playerPos)
-			move = -5;
-		else
-			move = 0;
-
-		GameObject.Find("LeftPlayer").GetComponent<Rigidbody2D>().velocity = new Vector2(0, move);
     }
 	
 	public void Launch()
