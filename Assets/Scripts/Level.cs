@@ -9,7 +9,7 @@ public class Level : MonoBehaviour
     public BoxCollider2D left;
     public BoxCollider2D right;
 	
-	public Camera camera;
+	public new Camera camera;
 	
     void Start()
     {
