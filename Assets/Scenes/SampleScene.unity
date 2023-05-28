@@ -421,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375362374}
   - component: {fileID: 375362373}
+  - component: {fileID: 375362375}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -438,7 +439,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -469,6 +470,18 @@ Transform:
   m_Father: {fileID: 465642864}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375362375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375362372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9292c65e278391a4db0b8e7fc3956bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &440292451
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +575,10 @@ MonoBehaviour:
   left: {fileID: 375362373}
   right: {fileID: 1003493894}
   camera: {fileID: 519420031}
+  skin: {fileID: 11400000, guid: 8efd6c10c2a2f6b49863e92f6fd0fd0e, type: 2}
+  enemy: {fileID: 475696019}
+  player: {fileID: 1770444281}
+  ball: {fileID: 2002081104}
 --- !u!4 &465642864
 Transform:
   m_ObjectHideFlags: 0
@@ -920,6 +937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003493895}
   - component: {fileID: 1003493894}
+  - component: {fileID: 1003493896}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -937,7 +955,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -968,6 +986,18 @@ Transform:
   m_Father: {fileID: 465642864}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1003493896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003493893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9292c65e278391a4db0b8e7fc3956bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1012337767
 GameObject:
   m_ObjectHideFlags: 0
