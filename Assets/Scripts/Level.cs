@@ -33,10 +33,10 @@ public class Level : MonoBehaviour
 	
 	static public void CountScore(string border)
 	{
-		if (border == "RightBorder")
+		if (border == "Right")
 			lPlayerScore += 1;
 		
-		else if (border == "LeftBorder")
+		else if (border == "Left")
 			rPlayerScore += 1;
     }
 	
