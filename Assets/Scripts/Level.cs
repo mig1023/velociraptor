@@ -57,8 +57,8 @@ public class Level : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.skin = skin;
-		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Left: " + enemyScore);
-		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Right: " + playerScore);
+		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Computer: " + enemyScore);
+		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Player: " + playerScore);
 
 		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Restart"))
 		{
