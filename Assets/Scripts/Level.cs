@@ -13,13 +13,12 @@ public class Level : MonoBehaviour
 	
 	public GUISkin skin;
 	
-	public Transform lPlayer;
-	public Transform rPlayer;
-	
+	public Transform enemy;
+	public Transform player;
 	public Transform ball;
 
-	static public int lPlayerScore = 0;
-	static public int rPlayerScore = 0;
+	static public int playerScore = 0;
+	static public int enemyScore = 0;
 	
 	void Start()
 	{
@@ -34,10 +33,10 @@ public class Level : MonoBehaviour
 	static public void CountScore(string border)
 	{
 		if (border == "Right")
-			lPlayerScore += 1;
+			enemyScore += 1;
 		
 		else if (border == "Left")
-			rPlayerScore += 1;
+			playerScore += 1;
     }
 	
 	void Borders()
@@ -58,13 +57,13 @@ public class Level : MonoBehaviour
 	void OnGUI()
 	{
 		GUI.skin = skin;
-		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Left: " + lPlayerScore);
-		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Right: " + rPlayerScore);
+		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Left: " + enemyScore);
+		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Right: " + playerScore);
 
 		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Restart"))
 		{
 			ScoreReset();
-			PlayerReset(0, 0);
+			PlayerReset();
 			GameObject.Find("Ball").GetComponent<BallControl>().Launch();
 		}
 
@@ -74,15 +73,15 @@ public class Level : MonoBehaviour
 		}
 	}
 	
-	void PlayerReset(float yl, float yr)
+	void PlayerReset()
 	{
-		lPlayer.position = new Vector2(-1 * camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, yl);
-		rPlayer.position = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, yr);
+		enemy.position = new Vector2(-1 * camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, 0);
+		player.position = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, 0);
 	}
 	
 	void ScoreReset()
 	{
-		lPlayerScore = 0;
-		rPlayerScore = 0;
+		enemyScore = 0;
+		playerScore = 0;
 	}
 }
