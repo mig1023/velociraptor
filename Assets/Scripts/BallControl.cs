@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class BallControl : MonoBehaviour
 {
-	public AudioSource audio1;
-	public AudioSource audio2;
+	AudioSource audioPlayer;
+	AudioSource audioBorder;
 	
 	void Start()
 	{
+		AudioSource[] allAudioSources = GetComponents<AudioSource>();
+		audioPlayer = allAudioSources[0];
+		audioBorder = allAudioSources[1];
+		
 		Launch();
 	}
 	
@@ -16,13 +20,13 @@ public class BallControl : MonoBehaviour
 	{
 		if (collision.collider.tag == "Player")
 		{
-			audio1.pitch = Random.Range(0.4f, 2f);
-			audio1.Play();
+			audioPlayer.pitch = Random.Range(0.4f, 2f);
+			audioPlayer.Play();
 		}
 		else
 		{
-			audio2.pitch = Random.Range(0.8f, 1.2f);
-			audio2.Play();
+			audioBorder.pitch = Random.Range(0.8f, 1.2f);
+			audioBorder.Play();
 		}
 	}
 	
