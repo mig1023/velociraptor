@@ -23,12 +23,14 @@ public class BallControl : MonoBehaviour
 			audioPlayer.pitch = Random.Range(0.4f, 2f);
 			audioPlayer.Play();
 			
-			GetComponent<Animator>().Play("Collision");
+			GetComponent<Animator>().Play("Horizontal");
 		}
 		else
 		{
 			audioBorder.pitch = Random.Range(0.8f, 1.2f);
 			audioBorder.Play();
+			
+			GetComponent<Animator>().Play("Vertical");
 		}
 	}
 	
