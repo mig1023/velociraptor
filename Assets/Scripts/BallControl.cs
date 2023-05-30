@@ -22,6 +22,8 @@ public class BallControl : MonoBehaviour
 		{
 			audioPlayer.pitch = Random.Range(0.4f, 2f);
 			audioPlayer.Play();
+			
+			GetComponent<Animator>().Play("Collision");
 		}
 		else
 		{
