@@ -24,6 +24,9 @@ public class BallControl : MonoBehaviour
 			audioPlayer.Play();
 			
 			GetComponent<Animator>().Play("Horizontal");
+			
+			float randomDirection = collision.collider.transform.position.y <= 0 ? -1 : 1;
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(randomDirection, 0f));
 		}
 		else
 		{
