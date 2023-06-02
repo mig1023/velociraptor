@@ -62,7 +62,6 @@ public class Level : MonoBehaviour
 
 		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Serve ball"))
 		{
-			//ScoreReset();
 			PlayerReset();
 			GameObject.Find("Ball").GetComponent<BallControl>().Launch();
 		}
@@ -78,10 +77,4 @@ public class Level : MonoBehaviour
 		enemy.position = new Vector2(-1 * camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, 0);
 		player.position = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, 0);
 	}
-	
-	/* void ScoreReset()
-	{
-		enemyScore = 0;
-		playerScore = 0;
-	} */
 }
