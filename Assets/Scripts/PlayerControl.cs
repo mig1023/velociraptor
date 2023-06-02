@@ -19,11 +19,7 @@ public class PlayerControl : MonoBehaviour
 			if (inhibitor > 0)
 				return;
 			
-			float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
-			float playerPos = GetComponent<Rigidbody2D>().transform.position.y;
-			float move = ballPos > playerPos ? 1 : -1;
-
-			GetComponent<Rigidbody2D>().velocity = new Vector2(0, move * speed);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, ComputerMove());
 			
 			inhibitor = 0.2f;
 		}
@@ -38,5 +34,34 @@ public class PlayerControl : MonoBehaviour
 			else if (GetComponent<Rigidbody2D>().velocity.y != 0)
 				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 		}
+	}
+	
+	private float ComputerMove()
+	{
+		float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
+		float computerPos = GetComponent<Rigidbody2D>().transform.position.y;
+		float direction = ballPos > computerPos ? 1 : -1;
+		
+		return ComputerSpeed(ballPos, computerPos) * direction;	
+	}
+
+	private float ComputerSpeed(float ballPos, float computerPos)
+	{
+		float diff = Mathf.Abs(computerPos - ballPos);
+		
+		if (diff > 0.7)
+			return 8f;
+		
+		else if (diff > 0.5)
+			return 5f;
+		
+		else if (diff > 0.3)
+			return 2.5f;
+		
+		else if (diff > 0.1)
+			return 1f;
+		
+		else
+			return 0f;
 	}
 }
