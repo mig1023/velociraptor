@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
 	public KeyCode moveUp;
 	public KeyCode moveDown;
 
-	public float speed = 10;
+	public float speed;
 	float inhibitor;
 	
 	void Update()
@@ -21,9 +21,9 @@ public class PlayerControl : MonoBehaviour
 			
 			float ballPos = GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position.y;
 			float playerPos = GetComponent<Rigidbody2D>().transform.position.y;
-			float move = ballPos > playerPos ? 5 : -5;
+			float move = ballPos > playerPos ? 1 : -1;
 
-			GetComponent<Rigidbody2D>().velocity = new Vector2(0, move);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, move * speed);
 			
 			inhibitor = 0.2f;
 		}
