@@ -8,20 +8,12 @@ public class PlayerControl : MonoBehaviour
 	public KeyCode moveDown;
 
 	public float speed;
-	float inhibitor;
 	
 	void Update()
 	{
 		if (moveUp == KeyCode.None)
-		{
-			inhibitor -= Time.deltaTime;
-			
-			if (inhibitor > 0)
-				return;
-			
+		{			
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, ComputerMove());
-			
-			inhibitor = 0.2f;
 		}
 		else
 		{
