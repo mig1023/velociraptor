@@ -704,9 +704,9 @@ GameObject:
   m_Component:
   - component: {fileID: 475696019}
   - component: {fileID: 475696018}
-  - component: {fileID: 475696017}
   - component: {fileID: 475696016}
   - component: {fileID: 475696020}
+  - component: {fileID: 475696021}
   m_Layer: 0
   m_Name: LeftPlayer
   m_TagString: Player
@@ -729,32 +729,6 @@ MonoBehaviour:
   moveUp: 0
   moveDown: 0
   speed: 10
---- !u!61 &475696017
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475696015}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.26, y: 6.24}
-    newSize: {x: 6.26, y: 6.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 6.26, y: 6.24}
-  m_EdgeRadius: 0
 --- !u!212 &475696018
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -796,7 +770,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d7991abe6bd37294aa550edf64fefcd5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e828d8a4c3baa9a42a497060a7064db5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -816,7 +790,7 @@ Transform:
   m_GameObject: {fileID: 475696015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.32, z: 1}
+  m_LocalScale: {x: 1, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -843,6 +817,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!68 &475696021
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475696015}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.25206044, y: 1.5422661}
+  - {x: -0.1363554, y: 1.6009835}
+  - {x: 0.29246807, y: 1.1845098}
+  - {x: 0.2910118, y: -1.1837449}
+  - {x: -0.14776802, y: -1.6247798}
+  - {x: -0.26360798, y: -1.5568856}
+  - {x: -0.26329848, y: 1.5524122}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
