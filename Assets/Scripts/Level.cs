@@ -47,7 +47,7 @@ public class Level : MonoBehaviour
 		bottom.size = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x * 2f * 2, 1);
 		bottom.offset = new Vector2(0f, -1 * camera.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y - 0.5f);
 
-		left.size = new Vector2(1f, camera.ScreenToWorldPoint(new Vector3(0f, Screen.height*2f, 0f)).y);
+		left.size = new Vector2(1f, camera.ScreenToWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
 		left.offset = new Vector2(-1 * camera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x - 2.5f, 0f);
 
 		right.size = new Vector2(1f, camera.ScreenToWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
@@ -60,9 +60,9 @@ public class Level : MonoBehaviour
 		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Computer: " + enemyScore);
 		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Player: " + playerScore);
 
-		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Restart"))
+		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Serve ball"))
 		{
-			ScoreReset();
+			//ScoreReset();
 			PlayerReset();
 			GameObject.Find("Ball").GetComponent<BallControl>().Launch();
 		}
@@ -79,9 +79,9 @@ public class Level : MonoBehaviour
 		player.position = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width - 50f, 0f, 0f)).x, 0);
 	}
 	
-	void ScoreReset()
+	/* void ScoreReset()
 	{
 		enemyScore = 0;
 		playerScore = 0;
-	}
+	} */
 }
