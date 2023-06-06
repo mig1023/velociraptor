@@ -17,6 +17,13 @@ public class Problems : MonoBehaviour
 	
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
+		StartCoroutine(CollisionCoroutine());
+	}
+	
+	private IEnumerator CollisionCoroutine()
+	{
+		yield return new WaitForSeconds(1);
+		
 		rotate += Random.Range(5f, 25f);
 	}
 }
