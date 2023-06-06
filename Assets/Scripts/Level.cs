@@ -17,8 +17,13 @@ public class Level : MonoBehaviour
 	public Transform player;
 	public Transform ball;
 
-	static public int playerScore = 0;
-	static public int enemyScore = 0;
+	static public int playerPoints = 0;
+	static public int playerGames = 0;
+	static public int playerSets = 0;
+	
+	static public int enemyPoints = 0;
+	static public int enemyGames = 0;
+	static public int enemySets = 0;
 	
 	void Start()
 	{
@@ -30,35 +35,41 @@ public class Level : MonoBehaviour
 		Borders();
 	}
 	
-	static public void CountScore(string border)
+	static public void Score(string border)
 	{
 		if (border == "Right")
-			enemyScore += 1;
+			enemyPoints += 1;
 		
 		else if (border == "Left")
-			playerScore += 1;
+			playerPoints += 1;
     }
+	
+	private Vector3 WorldPoint(Vector3 vector) =>
+		camera.ScreenToWorldPoint(vector);
 	
 	void Borders()
 	{
-		top.size = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x * 2f * 2,1);
-		top.offset = new Vector2(0f, camera.ScreenToWorldPoint(new Vector3(0f,Screen.height,0f)).y + 0.5f);
+		top.size = new Vector2(WorldPoint(new Vector3(Screen.width,0f,0f)).x * 2f * 2,1);
+		top.offset = new Vector2(0f, WorldPoint(new Vector3(0f,Screen.height,0f)).y + 0.5f);
 
-		bottom.size = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x * 2f * 2, 1);
-		bottom.offset = new Vector2(0f, -1 * camera.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y - 0.5f);
+		bottom.size = new Vector2(WorldPoint(new Vector3(Screen.width, 0f, 0f)).x * 2f * 2, 1);
+		bottom.offset = new Vector2(0f, -1 * WorldPoint(new Vector3(0f, Screen.height, 0f)).y - 0.5f);
 
-		left.size = new Vector2(1f, camera.ScreenToWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
-		left.offset = new Vector2(-1 * camera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x - 2.5f, 0f);
+		left.size = new Vector2(1f, WorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
+		left.offset = new Vector2(-1 * WorldPoint(new Vector3(Screen.width, 0f, 0f)).x - 2.5f, 0f);
 
-		right.size = new Vector2(1f, camera.ScreenToWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
-		right.offset = new Vector2(camera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x + 2.5f, 0f);
+		right.size = new Vector2(1f, WorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
+		right.offset = new Vector2(WorldPoint(new Vector3(Screen.width, 0f, 0f)).x + 2.5f, 0f);
 	}
 	
 	void OnGUI()
 	{
+		string enemy = string.Format("Computer: {0}", enemyPoints);
+		string player = string.Format("Player: {0}", playerPoints);
+		
 		GUI.skin = skin;
-		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), "Computer: " + enemyScore);
-		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), "Player: " + playerScore);
+		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), enemy);
+		GUI.Label(new Rect(Screen.width / 2 + 170, 20, 100, 100), player);
 
 		if (GUI.Button(new Rect(Screen.width / 2 - 140, 55, 124, 32), "Serve ball"))
 		{

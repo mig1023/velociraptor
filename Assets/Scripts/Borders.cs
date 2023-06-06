@@ -8,7 +8,7 @@ public class Borders : MonoBehaviour
     {
         if (collision.name == "Ball")
         {
-            Level.CountScore(transform.name);
+            Level.Score(transform.name);
             GameObject.Find("Ball").GetComponent<BallControl>().Launch();
         }
     }
