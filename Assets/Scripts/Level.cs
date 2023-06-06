@@ -17,8 +17,8 @@ public class Level : MonoBehaviour
 	public Transform player;
 	public Transform ball;
 
-	static public Score PlayerScore;
-	static public Score EnemyScore;
+	public static Score PlayerScore;
+	public static Score EnemyScore;
 	
 	void Start()
 	{
@@ -44,37 +44,79 @@ public class Level : MonoBehaviour
 		Borders();
 	}
 	
-	static public void Score(string border)
+	public static void Score(string border)
 	{
-		if (border == "Right")
-			EnemyScore.Points += 1;
+		GetScoreEntity(border, out Score change, out Score opponent);
 		
-		else if (border == "Left")
-			PlayerScore.Points += 1;
+		if (change.Points < 30)
+		{
+			change.Points += 15;
+		}
+		else if (change.Points < 40)
+		{
+			change.Points += 10;
+		}
+		else
+		{
+			change.Points = 0;
+			change.Games += 1; 
+			
+			if ((change.Games >= 6) && (change.Games >= opponent.Games + 2))
+			{
+				change.Games = 0;
+				change.Sets += 1;
+			}
+		}
     }
 	
-	private Vector3 WorldPoint(Vector3 vector) =>
+	private static void GetScoreEntity(string border, out Score change, out Score opponent)
+	{
+		if (border == "Right")
+		{
+			change = EnemyScore;
+			opponent = PlayerScore;
+		}
+		else
+		{
+			change = PlayerScore;
+			opponent = EnemyScore;
+		}
+	}
+	
+	private Vector3 GetWorldPoint(Vector3 vector) =>
 		camera.ScreenToWorldPoint(vector);
 	
 	void Borders()
 	{
-		top.size = new Vector2(WorldPoint(new Vector3(Screen.width,0f,0f)).x * 2f * 2,1);
-		top.offset = new Vector2(0f, WorldPoint(new Vector3(0f,Screen.height,0f)).y + 0.5f);
+		top.size = new Vector2(GetWorldPoint(new Vector3(Screen.width,0f,0f)).x * 2f * 2,1);
+		top.offset = new Vector2(0f, GetWorldPoint(new Vector3(0f,Screen.height,0f)).y + 0.5f);
 
-		bottom.size = new Vector2(WorldPoint(new Vector3(Screen.width, 0f, 0f)).x * 2f * 2, 1);
-		bottom.offset = new Vector2(0f, -1 * WorldPoint(new Vector3(0f, Screen.height, 0f)).y - 0.5f);
+		bottom.size = new Vector2(GetWorldPoint(new Vector3(Screen.width, 0f, 0f)).x * 2f * 2, 1);
+		bottom.offset = new Vector2(0f, -1 * GetWorldPoint(new Vector3(0f, Screen.height, 0f)).y - 0.5f);
 
-		left.size = new Vector2(1f, WorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
-		left.offset = new Vector2(-1 * WorldPoint(new Vector3(Screen.width, 0f, 0f)).x - 2.5f, 0f);
+		left.size = new Vector2(1f, GetWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
+		left.offset = new Vector2(-1 * GetWorldPoint(new Vector3(Screen.width, 0f, 0f)).x - 2.5f, 0f);
 
-		right.size = new Vector2(1f, WorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
-		right.offset = new Vector2(WorldPoint(new Vector3(Screen.width, 0f, 0f)).x + 2.5f, 0f);
+		right.size = new Vector2(1f, GetWorldPoint(new Vector3(0f, Screen.height * 2f, 0f)).y);
+		right.offset = new Vector2(GetWorldPoint(new Vector3(Screen.width, 0f, 0f)).x + 2.5f, 0f);
+	}
+	
+	private string GetOneScoreLine(string name, int score) =>
+		score > 0 ? string.Format("{0}: {1}\n", name, score) : string.Empty;
+	
+	private string GetScoreLine(string name, Score score)
+	{
+		string points = GetOneScoreLine("points", score.Points);
+		string games = GetOneScoreLine("games", score.Games);
+		string sets = GetOneScoreLine("sets", score.Sets);
+		
+		return string.Format("{0}:\n{1}{2}{3}", name, sets, games, points);
 	}
 	
 	void OnGUI()
 	{
-		string enemy = string.Format("Computer: {0}", EnemyScore.Points);
-		string player = string.Format("Player: {0}", PlayerScore.Points);
+		string enemy = GetScoreLine("Computer", EnemyScore);
+		string player = GetScoreLine("Player", PlayerScore);
 		
 		GUI.skin = skin;
 		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), enemy);
