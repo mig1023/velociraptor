@@ -17,17 +17,26 @@ public class Level : MonoBehaviour
 	public Transform player;
 	public Transform ball;
 
-	static public int playerPoints = 0;
-	static public int playerGames = 0;
-	static public int playerSets = 0;
-	
-	static public int enemyPoints = 0;
-	static public int enemyGames = 0;
-	static public int enemySets = 0;
+	static public Score PlayerScore;
+	static public Score EnemyScore;
 	
 	void Start()
 	{
 		Borders();
+		
+		PlayerScore = new Score
+		{
+			Points = 0,
+			Games = 0,
+			Sets = 0,
+		};
+		
+		EnemyScore = new Score
+		{
+			Points = 0,
+			Games = 0,
+			Sets = 0,
+		};
 	}
 
 	void Update()
@@ -38,10 +47,10 @@ public class Level : MonoBehaviour
 	static public void Score(string border)
 	{
 		if (border == "Right")
-			enemyPoints += 1;
+			EnemyScore.Points += 1;
 		
 		else if (border == "Left")
-			playerPoints += 1;
+			PlayerScore.Points += 1;
     }
 	
 	private Vector3 WorldPoint(Vector3 vector) =>
@@ -64,8 +73,8 @@ public class Level : MonoBehaviour
 	
 	void OnGUI()
 	{
-		string enemy = string.Format("Computer: {0}", enemyPoints);
-		string player = string.Format("Player: {0}", playerPoints);
+		string enemy = string.Format("Computer: {0}", EnemyScore.Points);
+		string player = string.Format("Player: {0}", PlayerScore.Points);
 		
 		GUI.skin = skin;
 		GUI.Label(new Rect(Screen.width / 2 - 280, 20, 100, 100), enemy);
