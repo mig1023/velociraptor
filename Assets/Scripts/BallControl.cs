@@ -35,13 +35,16 @@ public class BallControl : MonoBehaviour
 			
 			GetComponent<Animator>().Play("Vertical");
 		}
+		
+		float randomRotation = Random.Range(-1f, 1f);
+		GetComponent<Rigidbody2D>().AddTorque(randomRotation, ForceMode2D.Impulse);
 	}
 	
 	public void Launch()
 	{
 		GetComponent<Rigidbody2D>().transform.position = new Vector2(0, 0);
 		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
+		
 		float random = Random.Range(0f, 1f);
 		float randomDirection = random <= 0.5f ? -250f : 250f;
 		GetComponent<Rigidbody2D>().AddForce(new Vector2(randomDirection, 120f * (0.5f - random)));
