@@ -11,7 +11,7 @@ public class Problems : MonoBehaviour
 		if (rotate > 0f)
 		{
 			rotate -= 0.05f;
-			transform.Rotate(0f, 0f, 1f);
+			transform.Rotate(0f, 0f, 3f);
 		}
 	}
 	
