@@ -39,8 +39,8 @@ public class BallControl : MonoBehaviour
 	
 	public void Launch()
 	{
-		GameObject.Find("Ball").GetComponent<Rigidbody2D>().transform.position = new Vector2(0, 0);
-		GameObject.Find("Ball").GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+		GetComponent<Rigidbody2D>().transform.position = new Vector2(0, 0);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
 		float random = Random.Range(0f, 1f);
 		float randomDirection = random <= 0.5f ? -250f : 250f;
