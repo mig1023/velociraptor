@@ -1,0 +1,12 @@
+﻿@page "/wiki/{title}/edit"
+@model velociraptor.Pages.EditModel
+@{
+    ViewData["Title"] = @Model.ArticleTitle;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<br/>
+<div class="input-group flex-nowrap">
+  <textarea class="form-control" id="ArticleText" rows="12"></textarea>
+</div>
