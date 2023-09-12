@@ -5,11 +5,22 @@ namespace velociraptor.Pages
 {
     public class EditModel : PageModel
     {
-        public string ArticleTitle { get; set; }
+        [BindProperty]
+        public ORM.Article Article { get; set; }
+
+        public EditModel()
+        {
+            Article = new ORM.Article();
+        }
 
         public void OnGet(string title)
         {
-            ArticleTitle = title;
+            Article.Title = title;
+        }
+
+        public void OnPost()
+        {
+            ORM.Db.Save(Article);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace velociraptor.Pages
     {
         [BindProperty]
         [Required]
-        public string ArticleTitle { get; set; }
+        public string Title { get; set; }
 
         public void OnGet()
         {
@@ -23,7 +23,8 @@ namespace velociraptor.Pages
             }
             else
             {
-                return RedirectToPage("Edit", new { title = ArticleTitle });
+                ORM.Db.Create(Title);
+                return RedirectToPage("Edit", new { title = Title });
             }
         }
     }
