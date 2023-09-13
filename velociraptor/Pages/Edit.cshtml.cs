@@ -13,9 +13,17 @@ namespace velociraptor.Pages
             Article = new ORM.Article();
         }
 
-        public void OnGet(string title)
+        public IActionResult OnGet(string title)
         {
-            Article = ORM.Db.Get(title);
+            if (ORM.Db.Exists(title, out ORM.Article article))
+            {
+                Article = article;
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("Add", new { title = title });
+            }
         }
 
         public void OnPost()

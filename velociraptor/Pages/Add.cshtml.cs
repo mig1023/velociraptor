@@ -10,22 +10,28 @@ namespace velociraptor.Pages
         [Required]
         public string Title { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet(string title)
         {
-
+            if (!String.IsNullOrEmpty(title) && ORM.Db.Exists(title, out ORM.Article _))
+            {
+                return RedirectToPage("Edit", new { title = title });
+            }
+            else
+            {
+                Title = title;
+                return Page();
+            }
         }
 
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
-            else
-            {
+
+            if (!ORM.Db.Exists(Title, out ORM.Article _))
                 ORM.Db.Create(Title);
-                return RedirectToPage("Edit", new { title = Title });
-            }
+
+            return RedirectToPage("Edit", new { title = Title });
         }
     }
 }

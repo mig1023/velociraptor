@@ -47,5 +47,12 @@
                 return db.Articles.SingleOrDefault(x => x.Title == title);
             }
         }
+
+        public static bool Exists(string title, out Article article)
+        {
+            article = Get(title);
+
+            return article != null;
+        }
     }
 }
