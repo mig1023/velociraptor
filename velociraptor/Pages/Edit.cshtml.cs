@@ -15,7 +15,7 @@ namespace velociraptor.Pages
 
         public void OnGet(string title)
         {
-            Article.Title = title;
+            Article = ORM.Db.Get(title);
         }
 
         public void OnPost()

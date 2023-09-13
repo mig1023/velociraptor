@@ -25,7 +25,7 @@
 
                 if (change != null)
                 {
-                    change = article;
+                    change.Text = article.Text;
                     db.SaveChanges();
                 }
             }
