@@ -1,21 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using velociraptor.ORM;
 
 namespace velociraptor.Pages
 {
     public class EditModel : PageModel
     {
         [BindProperty]
-        public ORM.Article Article { get; set; }
+        public Article Article { get; set; }
 
         public EditModel()
         {
-            Article = new ORM.Article();
+            Article = new Article();
         }
 
         public IActionResult OnGet(string title)
         {
-            if (ORM.Db.Exists(title, out ORM.Article article))
+            if (Db.Exists(title, out Article article))
             {
                 Article = article;
                 return Page();
@@ -28,7 +29,7 @@ namespace velociraptor.Pages
 
         public void OnPost()
         {
-            ORM.Db.Save(Article);
+            Db.Save(Article);
         }
     }
 }

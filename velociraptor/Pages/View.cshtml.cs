@@ -1,15 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using velociraptor.ORM;
 
 namespace velociraptor.Pages
 {
     public class ViewModel : PageModel
     {
-        public ORM.Article Article { get; set; }
+        public Article Article { get; set; }
 
         public IActionResult OnGet(string title)
         {
-            if (ORM.Db.Exists(title, out ORM.Article article))
+            if (ORM.Db.Exists(title, out Article article))
             {
                 Article = article;
                 return Page();

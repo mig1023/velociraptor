@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using velociraptor.ORM;
 
 namespace velociraptor.Pages
 {
@@ -12,7 +13,7 @@ namespace velociraptor.Pages
 
         public IActionResult OnGet(string title)
         {
-            if (!String.IsNullOrEmpty(title) && ORM.Db.Exists(title, out ORM.Article _))
+            if (!String.IsNullOrEmpty(title) && Db.Exists(title, out Article _))
             {
                 return RedirectToPage("Edit", new { title = title });
             }
@@ -28,8 +29,8 @@ namespace velociraptor.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            if (!ORM.Db.Exists(Title, out ORM.Article _))
-                ORM.Db.Create(Title);
+            if (!Db.Exists(Title, out Article _))
+                Db.Create(Title);
 
             return RedirectToPage("Edit", new { title = Title });
         }
