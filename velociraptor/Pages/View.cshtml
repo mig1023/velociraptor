@@ -4,8 +4,10 @@
     ViewData["Title"] = @Model.Article.Title;
 }
 
-<p class="display-3">@ViewData["Title"]</p> 
-<p><a href="@Model.EditLink">Edit</a></p>
+<p>
+    <span class="display-3">@ViewData["Title"]</span>
+    <a href="@Model.EditLink">Edit</a>
+</p> 
 
 <form method="post">
     <div class="lead">
