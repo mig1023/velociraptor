@@ -1,0 +1,14 @@
+﻿@page "/wiki/{title}"
+@model velociraptor.Pages.ViewModel
+@{
+    ViewData["Title"] = @Model.Article.Title;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<br/>
+<form method="post">
+    <div class="lead">
+        @Model.Article.Text
+    </div>
+</form>
