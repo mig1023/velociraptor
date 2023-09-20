@@ -16,3 +16,29 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.table {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.column {
+    flex: 1 0 50%;
+}
+
+.dense-text {
+    line-height: 1.2;
+}
+
+.top-space {
+    margin-top: 40px;
+}
+
+.normal-link {
+    font-size: 26px;
+    font-weight: 300;
+}
+
+a, u {
+    text-decoration: none;
+}

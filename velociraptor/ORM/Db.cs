@@ -31,7 +31,7 @@
             }
         }
 
-        public static List<Article> List()
+        public static List<Article> All()
         {
             using (EntityContext db = new EntityContext())
             {

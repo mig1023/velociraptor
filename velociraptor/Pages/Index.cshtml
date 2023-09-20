@@ -7,3 +7,14 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+
+<div class="table text-center">
+    <div class="column">&nbsp;</div>
+    <div class="column dense-text">
+        <h1 class="display-6 top-space">Latest articles</h1>
+        @foreach (ORM.Article article in Model.LastArticles)
+        {
+            <a class="normal-link" href="/wiki/@article.Title">@article.Title</a><br/>
+        }
+    </div>
+</div>
