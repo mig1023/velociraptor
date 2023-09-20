@@ -7,7 +7,9 @@
             Article newArticle = new Article
             {
                 Title = article,
-                Text = String.Empty
+                Text = String.Empty,
+                Created = DateTime.Now,
+                LastChange = DateTime.Now,
             };
 
             using (EntityContext db = new EntityContext())
@@ -26,6 +28,7 @@
                 if (change != null)
                 {
                     change.Text = article.Text;
+                    change.LastChange = DateTime.Now;
                     db.SaveChanges();
                 }
             }

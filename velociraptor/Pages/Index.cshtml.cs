@@ -17,7 +17,9 @@ namespace velociraptor.Pages
 
         public void OnGet()
         {
-            LastArticles = Db.All().Take(5).ToList();
+            LastArticles = Db.All()
+                .Take(5)
+                .ToList();
         }
     }
 }
