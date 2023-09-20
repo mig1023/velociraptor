@@ -34,6 +34,10 @@ body {
     margin-top: 40px;
 }
 
+.left-space {
+    margin-left: 12px;
+}
+
 .normal-link {
     font-size: 26px;
     font-weight: 300;
