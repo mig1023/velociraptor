@@ -27,9 +27,10 @@ namespace velociraptor.Pages
             }
         }
 
-        public void OnPost()
+        public IActionResult OnPost(string title)
         {
             Db.Save(Article);
+            return RedirectToPage("View", new { title = title });
         }
     }
 }
