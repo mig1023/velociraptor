@@ -15,7 +15,7 @@ namespace velociraptor.Pages
         {
             if (!String.IsNullOrEmpty(title) && Db.Exists(title, out Article _))
             {
-                return RedirectToPage("Edit", new { title = title });
+                return RedirectToPage("Edit", new { title });
             }
             else
             {
@@ -32,7 +32,7 @@ namespace velociraptor.Pages
             if (!Db.Exists(Title, out Article _))
                 Db.Create(Title);
 
-            return RedirectToPage("Edit", new { title = Title });
+            return RedirectToPage("Edit", new { Title });
         }
     }
 }

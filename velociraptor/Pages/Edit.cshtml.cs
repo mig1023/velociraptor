@@ -23,14 +23,14 @@ namespace velociraptor.Pages
             }
             else
             {
-                return RedirectToPage("Add", new { title = title });
+                return RedirectToPage("Add", new { title });
             }
         }
 
         public IActionResult OnPost(string title)
         {
             Db.Save(Article);
-            return RedirectToPage("View", new { title = title });
+            return RedirectToPage("View", new { title });
         }
     }
 }

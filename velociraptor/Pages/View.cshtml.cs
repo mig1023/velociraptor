@@ -14,12 +14,12 @@ namespace velociraptor.Pages
             if (ORM.Db.Exists(title, out Article article))
             {
                 Article = article;
-                EditLink = Url.Page("Edit", new { title = title });
+                EditLink = Url.Page("Edit", new { title });
                 return Page();
             }
             else
             {
-                return RedirectToPage("Add", new { title = title });
+                return RedirectToPage("Add", new { title });
             }
         }
     }
