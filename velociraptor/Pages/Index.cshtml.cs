@@ -18,6 +18,7 @@ namespace velociraptor.Pages
         public void OnGet()
         {
             LastArticles = Db.All()
+                .OrderByDescending(x => x.Created)
                 .Take(5)
                 .ToList();
         }
