@@ -12,6 +12,9 @@
 
 <form method="post">
     <div class="lead">
-        @Model.Article.Text
+        @foreach (string line in Model.Article.Text.Split("\n"))
+        {
+            @line<br/>
+        }
     </div>
 </form>
