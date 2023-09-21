@@ -1,6 +1,8 @@
-﻿namespace velociraptor.ORM
+﻿using velociraptor.Model;
+
+namespace velociraptor.ORM
 {
-    public class Db
+    public class Database
     {
         public static void Create(string article)
         {

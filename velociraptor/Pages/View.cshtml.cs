@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using velociraptor.ORM;
+using velociraptor.Model;
 
 namespace velociraptor.Pages
 {
@@ -11,7 +11,7 @@ namespace velociraptor.Pages
 
         public IActionResult OnGet(string title)
         {
-            if (ORM.Db.Exists(title, out Article article))
+            if (ORM.Database.Exists(title, out Article article))
             {
                 Article = article;
                 EditLink = Url.Page("Edit", new { title });

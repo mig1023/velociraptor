@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using velociraptor.Model;
 using velociraptor.ORM;
 
 namespace velociraptor.Pages
@@ -16,7 +17,7 @@ namespace velociraptor.Pages
 
         public IActionResult OnGet(string title)
         {
-            if (Db.Exists(title, out Article article))
+            if (Database.Exists(title, out Article article))
             {
                 Article = article;
                 return Page();
@@ -29,7 +30,7 @@ namespace velociraptor.Pages
 
         public IActionResult OnPost(string title)
         {
-            Db.Save(Article);
+            Database.Save(Article);
             return RedirectToPage("View", new { title });
         }
     }

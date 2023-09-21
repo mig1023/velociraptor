@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using velociraptor.Model;
 
 namespace velociraptor.ORM
 {

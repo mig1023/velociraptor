@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using velociraptor.Model;
 using velociraptor.ORM;
 
 namespace velociraptor.Pages
@@ -17,7 +18,7 @@ namespace velociraptor.Pages
 
         public void OnGet()
         {
-            LastArticles = Db.All()
+            LastArticles = Database.All()
                 .OrderByDescending(x => x.Created)
                 .Take(5)
                 .ToList();

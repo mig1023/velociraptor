@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace velociraptor.ORM
+namespace velociraptor.Model
 {
     public class Article
     {
