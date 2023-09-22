@@ -10,7 +10,7 @@ namespace velociraptor.Model
 
         public bool NoNewLine { get; set; }
 
-        static List<Fragment> Get(string text, ChangeType type)
+        public static List<Fragment> Get(string text, ChangeType type)
         {
             List<Fragment> fragments = new List<Fragment>();
 
