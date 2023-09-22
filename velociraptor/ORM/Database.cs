@@ -57,6 +57,18 @@ namespace velociraptor.ORM
             }
         }
 
+        public static List<History> Changes(string title)
+        {
+            using (EntityContext db = new EntityContext())
+            {
+                Article? article = db.Articles.SingleOrDefault(x => x.Title == title);
+
+                List<History> changes = db.Histories.Where(x => x.ArcticleId == article.Id).ToList();
+
+                return changes;
+            }
+        }
+
         public static bool Exists(string title, out Article article)
         {
             article = Get(title);

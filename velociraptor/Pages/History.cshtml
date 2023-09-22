@@ -1,0 +1,31 @@
+﻿@page "/wiki/history/{title}"
+@model velociraptor.Pages.HistoryModel
+@{
+    ViewData["Title"] = @Model.Article.Title;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+<div class="table text-center">
+    <div class="column">&nbsp;</div>
+    <div class="column dense-text">
+        <h1 class="display-6 top-space">Latest articles</h1>
+        @foreach (Model.History history in Model.Histories)
+        {
+            if (history.Type == velociraptor.Model.History.ChangeType.Deleted)
+            {
+                <span class="deleted-text">@history.Text</span>
+            }
+            else if (history.Type == velociraptor.Model.History.ChangeType.Inserted)
+            {
+                <span class="inserted-text">@history.Text</span>
+            }
+            else
+            {
+                @history.Text
+            }
+        }
+    </div>
+</div>

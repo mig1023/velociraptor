@@ -7,7 +7,10 @@ namespace velociraptor.Pages
     public class ViewModel : PageModel
     {
         public Article Article { get; set; }
+
         public string EditLink { get; set; }
+
+        public string HistoryLink { get; set; }
 
         public IActionResult OnGet(string title)
         {
@@ -15,6 +18,7 @@ namespace velociraptor.Pages
             {
                 Article = article;
                 EditLink = Url.Page("Edit", new { title });
+                HistoryLink = Url.Page("History", new { title });
                 return Page();
             }
             else

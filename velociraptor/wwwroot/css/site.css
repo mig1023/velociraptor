@@ -34,6 +34,14 @@ body {
     margin-top: 40px;
 }
 
+.deleted-text {
+    background-color: red;
+}
+
+.inserted-text {
+    background-color: green;
+}
+
 .left-space {
     margin-left: 12px;
 }
