@@ -1,6 +1,7 @@
 ﻿using DiffPlex;
 using DiffPlex.Chunkers;
 using DiffPlex.Model;
+using System.Text;
 
 namespace velociraptor.Model
 {
@@ -54,18 +55,18 @@ namespace velociraptor.Model
         public static string Restore(string text, List<History> histories)
         {
             List<Fragment> fragments = Fragment.Get(text, histories);
-            string prevText = String.Empty;
+            StringBuilder restored = new StringBuilder();
 
-            foreach (Fragment frag in fragments)
+            foreach (Fragment fragment in fragments)
             {
-                if (frag.Type != ChangeType.Inserted)
-                    prevText += frag.Text;
+                if (fragment.Type != ChangeType.Inserted)
+                    restored.Append(fragment.Text);
 
-                if (!frag.NoNewLine)
-                    prevText += "\n";
+                if (!fragment.NoNewLine)
+                    restored.Append("\n");
             }
 
-            return prevText;
+            return restored.ToString();
         }
     }
 }
