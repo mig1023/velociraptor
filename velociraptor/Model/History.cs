@@ -1,6 +1,7 @@
 ﻿using DiffPlex;
 using DiffPlex.Chunkers;
 using DiffPlex.Model;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace velociraptor.Model
@@ -14,13 +15,20 @@ namespace velociraptor.Model
             Inserted
         }
 
+        [Key]
+        public int Id { get; set; }
+
+        public int ArcticleId { get; set; }
+
         public string Text { get; set; }
 
         public int Pos { get; set; }
 
+        public DateTime Date { get; set; }
+
         public ChangeType Type { get; set; }
 
-        public static List<History> Get(string oldText, string newText)
+        public static List<History> Get(int articleId, string oldText, string newText)
         {
             IDiffer diff = new Differ();
             IChunker chunker = new CharacterChunker();
@@ -30,23 +38,27 @@ namespace velociraptor.Model
 
             foreach (DiffBlock item in result.DiffBlocks)
             {
-                History history = new History();
-
                 if (item.DeleteCountA > 0)
                 {
+                    History history = new History();
                     history.Text = oldText.Substring(item.DeleteStartA, item.DeleteCountA);
                     history.Pos = item.DeleteStartA;
                     history.Type = ChangeType.Deleted;
+                    history.ArcticleId = articleId;
+                    history.Date = DateTime.Now;
+                    histories.Add(history);
                 }
 
                 if (item.InsertCountB > 0)
                 {
+                    History history = new History();
                     history.Text = newText.Substring(item.InsertStartB, item.InsertCountB);
                     history.Pos = item.InsertStartB;
                     history.Type = ChangeType.Inserted;
+                    history.ArcticleId = articleId;
+                    history.Date = DateTime.Now;
+                    histories.Add(history);
                 }
-
-                histories.Add(history);
             }
 
             return histories;

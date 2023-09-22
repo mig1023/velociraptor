@@ -9,6 +9,8 @@ namespace velociraptor.ORM
 
         public DbSet<Article> Articles { get; set; }
 
+        public DbSet<History> Histories { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Velociraptor;Trusted_Connection=True;");

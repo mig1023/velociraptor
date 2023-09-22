@@ -29,8 +29,12 @@ namespace velociraptor.ORM
 
                 if (change != null)
                 {
+                    List<History> diffChanges = History.Get(change.Id, change.Text, article.Text);
+                    db.Histories.AddRange(diffChanges);
+
                     change.Text = article.Text;
                     change.LastChange = DateTime.Now;
+
                     db.SaveChanges();
                 }
             }

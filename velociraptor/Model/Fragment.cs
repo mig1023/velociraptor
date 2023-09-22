@@ -1,9 +1,13 @@
-﻿using static velociraptor.Model.History;
+﻿using System.ComponentModel.DataAnnotations;
+using static velociraptor.Model.History;
 
 namespace velociraptor.Model
 {
     public class Fragment
     {
+        [Key]
+        public int Id { get; set; }
+
         public string Text { get; set; }
 
         public ChangeType Type { get; set; }
