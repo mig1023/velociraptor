@@ -4,33 +4,52 @@
     ViewData["Title"] = @Model.Article.Title;
 }
 
+@functions {
+    public void FragmentsSeparator(Model.Fragment fragment, bool next)
+    {
+        if (fragment.Type == velociraptor.Model.History.ChangeType.Deleted)
+        {
+            if (next)
+            {
+                <span class="deleted-text">@fragment.Text</span>
+            }
+        }
+        else if (fragment.Type == velociraptor.Model.History.ChangeType.Inserted)
+        {
+            if (!next)
+            {
+                <span class="inserted-text">@fragment.Text</span>
+            }
+        }
+        else
+        {
+            @fragment.Text
+        }
+
+        if (!fragment.NoNewLine)
+        {
+            <br/>
+        }
+    }
+}
+
 <p class="display-3">@ViewData["Title"]</p>
 
 <br/>
 
 <div class="table text-center">
-    <div class="column">&nbsp;</div>
-    <div class="column normal-text">
+    <div class="column normal-text right-padding">
         <h1 class="display-6 top-space">@Model.ChangeDateNext</h1>
         @foreach (Model.Fragment fragment in Model.Fragments)
         {
-            if (fragment.Type == velociraptor.Model.History.ChangeType.Deleted)
-            {
-                <span class="deleted-text">@fragment.Text</span>
-            }
-            else if (fragment.Type == velociraptor.Model.History.ChangeType.Inserted)
-            {
-                <span class="inserted-text">@fragment.Text</span>
-            }
-            else
-            {
-                @fragment.Text
-            }
-
-            if (!fragment.NoNewLine)
-            {
-                <br/>
-            }
+            FragmentsSeparator(fragment, next: false);
+        }
+    </div>
+    <div class="column normal-text left-padding">
+        <h1 class="display-6 top-space">@Model.ChangeDateNext</h1>
+        @foreach (Model.Fragment fragment in Model.Fragments)
+        {
+            FragmentsSeparator(fragment, next: true);
         }
     </div>
 </div>
