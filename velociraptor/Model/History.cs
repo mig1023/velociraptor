@@ -15,7 +15,7 @@
 
         public ChangeType Type { get; set; }
 
-        static List<Fragment> Diff(string text, List<History> histories)
+        public static List<Fragment> Diff(string text, List<History> histories)
         {
             List<Fragment> fragments = new List<Fragment>();
             int prevIndex = 0;
@@ -38,6 +38,23 @@
             fragments.AddRange(Fragment.Get(text.Substring(prevIndex, last), 0));
 
             return fragments;
+        }
+
+        public static string Restore(string text, List<History> histories)
+        {
+            List<Fragment> fragments = Diff(text, histories);
+            string prevText = String.Empty;
+
+            foreach (Fragment frag in fragments)
+            {
+                if (frag.Type != ChangeType.Inserted)
+                    prevText += frag.Text;
+
+                if (!frag.NoNewLine)
+                    prevText += "\n";
+            }
+
+            return prevText;
         }
     }
 }
