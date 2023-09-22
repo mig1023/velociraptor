@@ -1,4 +1,8 @@
-﻿namespace velociraptor.Model
+﻿using DiffPlex;
+using DiffPlex.Chunkers;
+using DiffPlex.Model;
+
+namespace velociraptor.Model
 {
     public class History
     {
@@ -15,34 +19,41 @@
 
         public ChangeType Type { get; set; }
 
-        public static List<Fragment> Diff(string text, List<History> histories)
+        public static List<History> Get(string oldText, string newText)
         {
-            List<Fragment> fragments = new List<Fragment>();
-            int prevIndex = 0;
+            IDiffer diff = new Differ();
+            IChunker chunker = new CharacterChunker();
+            DiffResult result = diff.CreateDiffs(oldText, newText, false, false, chunker);
 
-            foreach (History history in histories)
+            List<History> histories = new List<History>();
+
+            foreach (DiffBlock item in result.DiffBlocks)
             {
-                if (history.Pos > prevIndex)
+                History history = new History();
+
+                if (item.DeleteCountA > 0)
                 {
-                    string frag = text.Substring(prevIndex, history.Pos - prevIndex);
-                    fragments.AddRange(Fragment.Get(frag, 0));
+                    history.Text = oldText.Substring(item.DeleteStartA, item.DeleteCountA);
+                    history.Pos = item.DeleteStartA;
+                    history.Type = ChangeType.Deleted;
                 }
 
-                fragments.AddRange(Fragment.Get(history.Text, history.Type));
+                if (item.InsertCountB > 0)
+                {
+                    history.Text = newText.Substring(item.InsertStartB, item.InsertCountB);
+                    history.Pos = item.InsertStartB;
+                    history.Type = ChangeType.Inserted;
+                }
 
-                int size_bonus = history.Type == ChangeType.Inserted ? history.Text.Length : 0;
-                prevIndex = history.Pos + size_bonus;
+                histories.Add(history);
             }
 
-            int last = text.Length - prevIndex;
-            fragments.AddRange(Fragment.Get(text.Substring(prevIndex, last), 0));
-
-            return fragments;
+            return histories;
         }
 
         public static string Restore(string text, List<History> histories)
         {
-            List<Fragment> fragments = Diff(text, histories);
+            List<Fragment> fragments = Fragment.Get(text, histories);
             string prevText = String.Empty;
 
             foreach (Fragment frag in fragments)
