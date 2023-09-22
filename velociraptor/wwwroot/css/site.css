@@ -35,11 +35,11 @@ body {
 }
 
 .deleted-text {
-    background-color: red;
+    background-color: palevioletred;
 }
 
 .inserted-text {
-    background-color: green;
+    background-color: palegreen;
 }
 
 .left-space {

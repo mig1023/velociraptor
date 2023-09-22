@@ -24,11 +24,24 @@ namespace velociraptor.Model
 
         public int Pos { get; set; }
 
+        public int Version { get; set; }
+
         public DateTime Date { get; set; }
 
         public ChangeType Type { get; set; }
 
-        public static List<History> Get(int articleId, string oldText, string newText)
+        public History()
+        {
+        }
+
+        public History(int articleId, int newVersion)
+        {
+            this.ArcticleId = articleId;
+            this.Version = newVersion;
+            this.Date = DateTime.Now;
+        }
+
+        public static List<History> Get(int articleId, int newVersion, string oldText, string newText)
         {
             IDiffer diff = new Differ();
             IChunker chunker = new CharacterChunker();
@@ -40,23 +53,19 @@ namespace velociraptor.Model
             {
                 if (item.DeleteCountA > 0)
                 {
-                    History history = new History();
+                    History history = new History(articleId, newVersion);
                     history.Text = oldText.Substring(item.DeleteStartA, item.DeleteCountA);
                     history.Pos = item.DeleteStartA;
                     history.Type = ChangeType.Deleted;
-                    history.ArcticleId = articleId;
-                    history.Date = DateTime.Now;
                     histories.Add(history);
                 }
 
                 if (item.InsertCountB > 0)
                 {
-                    History history = new History();
+                    History history = new History(articleId, newVersion);
                     history.Text = newText.Substring(item.InsertStartB, item.InsertCountB);
                     history.Pos = item.InsertStartB;
                     history.Type = ChangeType.Inserted;
-                    history.ArcticleId = articleId;
-                    history.Date = DateTime.Now;
                     histories.Add(history);
                 }
             }

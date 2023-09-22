@@ -26,10 +26,11 @@ namespace velociraptor.ORM
             using (EntityContext db = new EntityContext())
             {
                 Article? change = db.Articles.SingleOrDefault(x => x.Title == article.Title);
+                int newVersion = Database.LastVersion(change.Title) + 1;
 
                 if (change != null)
                 {
-                    List<History> diffChanges = History.Get(change.Id, change.Text, article.Text);
+                    List<History> diffChanges = History.Get(change.Id, newVersion, change.Text, article.Text);
                     db.Histories.AddRange(diffChanges);
 
                     change.Text = article.Text;
@@ -61,11 +62,32 @@ namespace velociraptor.ORM
         {
             using (EntityContext db = new EntityContext())
             {
-                Article? article = db.Articles.SingleOrDefault(x => x.Title == title);
+                Article? article = db.Articles
+                    .SingleOrDefault(x => x.Title == title);
 
-                List<History> changes = db.Histories.Where(x => x.ArcticleId == article.Id).ToList();
+                int lastVersion = Database.LastVersion(title);
+
+                List<History> changes = db.Histories
+                    .Where(x => x.ArcticleId == article.Id)
+                    .Where(x => x.Version == lastVersion)
+                    .ToList();
 
                 return changes;
+            }
+        }
+
+        public static int LastVersion(string title)
+        {
+            using (EntityContext db = new EntityContext())
+            {
+                Article? article = db.Articles
+                    .SingleOrDefault(x => x.Title == title);
+
+                int lastVersion = db.Histories
+                    .Where(x => x.ArcticleId == article.Id)
+                    .Max(x => (int?)x.Version) ?? 0;
+
+                return lastVersion;
             }
         }
 
