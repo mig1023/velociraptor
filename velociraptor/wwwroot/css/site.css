@@ -30,6 +30,11 @@ body {
     line-height: 1.2;
 }
 
+.normal-text {
+    line-height: 1.2;
+    text-align: justify;
+}
+
 .top-space {
     margin-top: 40px;
 }

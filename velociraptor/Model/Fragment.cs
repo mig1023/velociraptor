@@ -35,7 +35,7 @@ namespace velociraptor.Model
             }
 
             if (!text.EndsWith("\n") && fragments.Count > 0)
-                fragments[fragments.Count - 1].NoNewLine = true;
+                fragments.Last().NoNewLine = true;
 
             return fragments;
         }

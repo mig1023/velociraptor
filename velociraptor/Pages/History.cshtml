@@ -4,14 +4,14 @@
     ViewData["Title"] = @Model.Article.Title;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+<p class="display-3">@ViewData["Title"]</p>
+
+<br/>
 
 <div class="table text-center">
     <div class="column">&nbsp;</div>
-    <div class="column dense-text">
-        <h1 class="display-6 top-space">Latest articles</h1>
+    <div class="column normal-text">
+        <h1 class="display-6 top-space">@Model.ChangeDateNext</h1>
         @foreach (Model.Fragment fragment in Model.Fragments)
         {
             if (fragment.Type == velociraptor.Model.History.ChangeType.Deleted)
@@ -25,6 +25,11 @@
             else
             {
                 @fragment.Text
+            }
+
+            if (!fragment.NoNewLine)
+            {
+                <br/>
             }
         }
     </div>

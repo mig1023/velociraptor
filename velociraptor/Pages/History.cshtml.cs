@@ -11,10 +11,15 @@ namespace velociraptor.Pages
 
         public List<Fragment> Fragments { get; set; }
 
+        public DateTime ChangeDatePrev { get; set; }
+
+        public DateTime ChangeDateNext { get; set; }
+
         public IActionResult OnGet(string title)
         {
             Article = Database.Get(title);
             List<History> histories = Database.Changes(title);
+            ChangeDateNext = histories.Last().Date;
             Fragments = Fragment.Get(Article.Text, histories);
 
             return Page();
