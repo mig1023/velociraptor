@@ -12,19 +12,19 @@
     <div class="column">&nbsp;</div>
     <div class="column dense-text">
         <h1 class="display-6 top-space">Latest articles</h1>
-        @foreach (Model.History history in Model.Histories)
+        @foreach (Model.Fragment fragment in Model.Fragments)
         {
-            if (history.Type == velociraptor.Model.History.ChangeType.Deleted)
+            if (fragment.Type == velociraptor.Model.History.ChangeType.Deleted)
             {
-                <span class="deleted-text">@history.Text</span>
+                <span class="deleted-text">@fragment.Text</span>
             }
-            else if (history.Type == velociraptor.Model.History.ChangeType.Inserted)
+            else if (fragment.Type == velociraptor.Model.History.ChangeType.Inserted)
             {
-                <span class="inserted-text">@history.Text</span>
+                <span class="inserted-text">@fragment.Text</span>
             }
             else
             {
-                @history.Text
+                @fragment.Text
             }
         }
     </div>

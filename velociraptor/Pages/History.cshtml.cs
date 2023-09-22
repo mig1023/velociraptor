@@ -9,12 +9,13 @@ namespace velociraptor.Pages
     {
         public Article Article { get; set; }
 
-        public List<History> Histories { get; set; }
+        public List<Fragment> Fragments { get; set; }
 
         public IActionResult OnGet(string title)
         {
             Article = Database.Get(title);
-            Histories = Database.Changes(title);
+            List<History> histories = Database.Changes(title);
+            Fragments = Fragment.Get(Article.Text, histories);
 
             return Page();
         }
