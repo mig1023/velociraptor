@@ -17,13 +17,16 @@ namespace velociraptor.Pages
 
         public IActionResult OnGet(string title, int? version)
         {
-            int historyVersion = version ?? Database.LastVersion(title);
+            int currentVersion = version ?? Database.LastVersion(title);
 
             Article = Database.Get(title);
-            List<History> histories = Database.Changes(title, historyVersion);
-            Database.PrevVersion(title, historyVersion, out DateTime prevChanges);
-            ChangeDatePrev = prevChanges;
-            ChangeDateNext = histories.Last().Date;
+            List<History> histories = Database.Changes(title, currentVersion);
+
+            ChangeDateNext = Database.VersionDate(title, currentVersion);
+
+            int prevVersion = Database.PrevVersion(title, currentVersion);
+            ChangeDatePrev = Database.VersionDate(title, prevVersion);
+
             Fragments = Fragment.Get(Article.Text, histories);
 
             return Page();

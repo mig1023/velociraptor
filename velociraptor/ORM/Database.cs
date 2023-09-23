@@ -74,6 +74,23 @@ namespace velociraptor.ORM
             }
         }
 
+        public static DateTime VersionDate(string title, int version)
+        {
+            using (EntityContext db = new EntityContext())
+            {
+                Article? article = db.Articles
+                    .SingleOrDefault(x => x.Title == title);
+
+                DateTime date = db.Histories
+                    .Where(x => x.ArcticleId == article.Id)
+                    .Where(x => x.Version == version)
+                    .Select(x => x.Date)
+                    .FirstOrDefault();
+
+                return date;
+            }
+        }
+
         public static int LastVersion(string title)
         {
             using (EntityContext db = new EntityContext())
@@ -89,7 +106,7 @@ namespace velociraptor.ORM
             }
         }
 
-        public static int PrevVersion(string title, int version, out DateTime date)
+        public static int PrevVersion(string title, int version)
         {
             date = DateTime.Now;
 
