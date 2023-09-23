@@ -91,6 +91,40 @@ namespace velociraptor.ORM
             }
         }
 
+        public static int PrevVersion(string title, int version, out DateTime date)
+        {
+            date = DateTime.Now;
+
+            if (version <= 1)
+                return 0;
+
+            using (EntityContext db = new EntityContext())
+            {
+                Article? article = db.Articles
+                    .SingleOrDefault(x => x.Title == title);
+
+                var allVersions = db.Histories
+                    .Where(x => x.ArcticleId == article.Id)
+                    .Where(x => x.Version < version)
+                    .Select(x => x.Version)
+                    .Distinct()
+                    .OrderByDescending(x => x);
+                    
+
+                if (allVersions.Count() < 1)
+                    return 0;
+
+                int tmp = allVersions.First();
+
+                date = db.Histories
+                    .Where(x => x.Version == allVersions.First())
+                    .Select(x => x.Date)
+                    .FirstOrDefault();
+
+                return allVersions.First();
+            }
+        }
+
         public static bool Exists(string title, out Article article)
         {
             article = Get(title);

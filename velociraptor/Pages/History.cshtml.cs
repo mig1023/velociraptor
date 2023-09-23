@@ -19,6 +19,8 @@ namespace velociraptor.Pages
         {
             Article = Database.Get(title);
             List<History> histories = Database.Changes(title);
+            Database.PrevVersion(title, Database.LastVersion(title), out DateTime prevChanges);
+            ChangeDatePrev = prevChanges;
             ChangeDateNext = histories.Last().Date;
             Fragments = Fragment.Get(Article.Text, histories);
 
