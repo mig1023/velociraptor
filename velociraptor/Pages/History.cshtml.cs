@@ -15,6 +15,10 @@ namespace velociraptor.Pages
 
         public DateTime ChangeDateNext { get; set; }
 
+        public string NextVersion { get; set; }
+
+        public string PrevVersion { get; set; }
+
         public IActionResult OnGet(string title, int? version)
         {
             int currentVersion = version ?? Database.LastVersion(title);
@@ -25,6 +29,7 @@ namespace velociraptor.Pages
             ChangeDateNext = Database.VersionDate(title, currentVersion);
 
             int prevVersion = Database.PrevVersion(title, currentVersion);
+            PrevVersion = Url.Page("History", new { title, version = prevVersion });
             ChangeDatePrev = Database.VersionDate(title, prevVersion);
 
             Fragments = Fragment.Get(Article.Text, histories);
