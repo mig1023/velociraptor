@@ -9,14 +9,14 @@
     {
         if (fragment.Type == velociraptor.Model.History.ChangeType.Deleted)
         {
-            if (next)
+            if (!next)
             {
                 <span class="deleted-text">@fragment.Text</span>
             }
         }
         else if (fragment.Type == velociraptor.Model.History.ChangeType.Inserted)
         {
-            if (!next)
+            if (next)
             {
                 <span class="inserted-text">@fragment.Text</span>
             }
