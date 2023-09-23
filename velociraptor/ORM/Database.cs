@@ -58,18 +58,16 @@ namespace velociraptor.ORM
             }
         }
 
-        public static List<History> Changes(string title)
+        public static List<History> Changes(string title, int version)
         {
             using (EntityContext db = new EntityContext())
             {
                 Article? article = db.Articles
                     .SingleOrDefault(x => x.Title == title);
 
-                int lastVersion = Database.LastVersion(title);
-
                 List<History> changes = db.Histories
                     .Where(x => x.ArcticleId == article.Id)
-                    .Where(x => x.Version == lastVersion)
+                    .Where(x => x.Version == version)
                     .ToList();
 
                 return changes;

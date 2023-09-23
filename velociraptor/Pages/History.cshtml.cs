@@ -15,11 +15,13 @@ namespace velociraptor.Pages
 
         public DateTime ChangeDateNext { get; set; }
 
-        public IActionResult OnGet(string title)
+        public IActionResult OnGet(string title, int? version)
         {
+            int historyVersion = version ?? Database.LastVersion(title);
+
             Article = Database.Get(title);
-            List<History> histories = Database.Changes(title);
-            Database.PrevVersion(title, Database.LastVersion(title), out DateTime prevChanges);
+            List<History> histories = Database.Changes(title, historyVersion);
+            Database.PrevVersion(title, historyVersion, out DateTime prevChanges);
             ChangeDatePrev = prevChanges;
             ChangeDateNext = histories.Last().Date;
             Fragments = Fragment.Get(Article.Text, histories);
