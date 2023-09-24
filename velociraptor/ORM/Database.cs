@@ -124,7 +124,7 @@ namespace velociraptor.ORM
                 return all.Where(x => x < version).FirstOrDefault();
 
             else if (next)
-                return all.Where(x => x > version).OrderByDescending(x => x).FirstOrDefault();
+                return all.Where(x => x > version).OrderBy(x => x).FirstOrDefault();            
 
             else
                 return version;
