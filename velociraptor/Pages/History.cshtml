@@ -23,12 +23,26 @@
         }
         else
         {
-            @fragment.Text
+                @fragment.Text
         }
 
         if (!fragment.NoNewLine)
         {
             <br/>
+        }
+    }
+
+    public void DiffColumn(string padding, string href, string hrefText, string date, bool isNext)
+    {
+        {
+            <div class="column normal-text @padding">
+                <a class="normal-link" href="@href">@hrefText</a><br/>
+                <h1 class="display-6 top-space">@date</h1>
+                @foreach (Model.Fragment fragment in Model.Fragments)
+                {
+                    FragmentsSeparator(fragment, next: isNext);
+                }
+            </div>
         }
     }
 }
@@ -38,20 +52,8 @@
 <br/>
 
 <div class="table text-center">
-    <div class="column normal-text right-padding">
-        <a class="normal-link" href="@Model.PrevVersion">Previous version</a><br/>
-        <h1 class="display-6 top-space">@Model.ChangeDatePrev</h1>
-        @foreach (Model.Fragment fragment in Model.Fragments)
-        {
-            FragmentsSeparator(fragment, next: false);
-        }
-    </div>
-    <div class="column normal-text left-padding">
-        <a class="normal-link" href="@Model.NextVersion">Next version</a><br/>
-        <h1 class="display-6 top-space">@Model.ChangeDateNext</h1>
-        @foreach (Model.Fragment fragment in Model.Fragments)
-        {
-            FragmentsSeparator(fragment, next: true);
-        }
-    </div>
+    @{
+        DiffColumn("right-padding", Model.PrevVersion, "Previous version", Model.ChangeDatePrev.ToString(), false);
+        DiffColumn("left-padding", Model.NextVersion, "Next version", Model.ChangeDateNext.ToString(), true);
+    }
 </div>
