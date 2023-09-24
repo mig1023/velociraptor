@@ -50,11 +50,17 @@ namespace velociraptor.ORM
             }
         }
 
-        public static Article? Get(string title)
+        public static Article? Get(string title, int? version = null)
         {
             using (EntityContext db = new EntityContext())
             {
-                return db.Articles.SingleOrDefault(x => x.Title == title);
+                Article article = db.Articles
+                    .SingleOrDefault(x => x.Title == title);
+
+                if (version == null)
+                    return article;
+
+
             }
         }
 
@@ -74,22 +80,7 @@ namespace velociraptor.ORM
             }
         }
 
-        public static int LastVersion(string title)
-        {
-            using (EntityContext db = new EntityContext())
-            {
-                Article? article = db.Articles
-                    .SingleOrDefault(x => x.Title == title);
-
-                int lastVersion = db.Histories
-                    .Where(x => x.ArcticleId == article.Id)
-                    .Max(x => (int?)x.Version) ?? 0;
-
-                return lastVersion;
-            }
-        }
-
-        public static int PrevVersion(string title, int version)
+        public static List<int> AllVersions(string title)
         {
             using (EntityContext db = new EntityContext())
             {
@@ -98,16 +89,29 @@ namespace velociraptor.ORM
 
                 var allVersions = db.Histories
                     .Where(x => x.ArcticleId == article.Id)
-                    .Where(x => x.Version < version)
                     .Select(x => x.Version)
                     .Distinct()
-                    .OrderByDescending(x => x);                   
+                    .OrderByDescending(x => x);
 
-                if (allVersions.Count() < 1)
-                    return 0;
-
-                return allVersions.First();
+                return allVersions.ToList();
             }
+        }
+
+        public static int LastVersion(string title)
+        {
+            int maxVersions = AllVersions(title)
+                .Max(x => (int?)x) ?? 0;
+
+            return maxVersions;
+        }
+
+        public static int PrevVersion(string title, int version)
+        {
+            int lastVersions = AllVersions(title)
+                .Where(x => x < version)
+                .First();
+
+            return lastVersions;
         }
 
         public static bool Exists(string title, out Article article)
