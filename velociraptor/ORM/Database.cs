@@ -67,7 +67,7 @@ namespace velociraptor.ORM
                 while (restoredVersion > version)
                 {
                     article.Text = History.Restore(article.Text, Changes(title, restoredVersion));
-                    restoredVersion = PrevVersion(title, restoredVersion);
+                    restoredVersion = OtherVersion(title, restoredVersion, prev: true);
                 }
 
                 return article;
@@ -115,13 +115,19 @@ namespace velociraptor.ORM
             return maxVersions;
         }
 
-        public static int PrevVersion(string title, int version)
+        public static int OtherVersion(string title, int version,
+            bool prev = false, bool next = false)
         {
-            int lastVersions = AllVersions(title)
-                .Where(x => x < version)
-                .First();
+            List<int> all = AllVersions(title);
 
-            return lastVersions;
+            if (prev)
+                return all.Where(x => x < version).FirstOrDefault();
+
+            else if (next)
+                return all.Where(x => x > version).OrderByDescending(x => x).FirstOrDefault();
+
+            else
+                return version;
         }
 
         public static bool Exists(string title, out Article article)

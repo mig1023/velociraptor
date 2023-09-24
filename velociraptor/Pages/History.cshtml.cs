@@ -26,9 +26,11 @@ namespace velociraptor.Pages
             int currentVersion = version ?? Database.LastVersion(title);
             List<History> histories = Database.Changes(title, currentVersion);
 
+            int nextVesrion = Database.OtherVersion(title, currentVersion, next: true);
+            NextVersion = Url.Page("History", new { title, version = nextVesrion });
             ChangeDateNext = Database.VersionDate(title, currentVersion);
 
-            int prevVersion = Database.PrevVersion(title, currentVersion);
+            int prevVersion = Database.OtherVersion(title, currentVersion, prev: true);
             PrevVersion = Url.Page("History", new { title, version = prevVersion });
             ChangeDatePrev = Database.VersionDate(title, prevVersion);
 
