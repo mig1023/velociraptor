@@ -60,10 +60,10 @@
 
 <div class="table text-center">
     @{
-        DiffColumn("right-padding", Model.PrevVersionLink, "Previous version",
-            Model.PrevVersion, Model.ChangeDatePrev.ToString(), false);
+        DiffColumn("right-padding", Model.Prev.Link, "Previous version",
+            Model.Prev.Number, Model.Prev.Date.ToString(), false);
 
-        DiffColumn("left-padding", Model.NextVersionLink, "Next version",
-            Model.NextVersion, Model.ChangeDateNext.ToString(), true);
+        DiffColumn("left-padding", Model.Next.Link, "Next version",
+            Model.Next.Number, Model.Next.Date.ToString(), true);
     }
 </div>

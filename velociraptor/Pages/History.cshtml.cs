@@ -11,17 +11,10 @@ namespace velociraptor.Pages
 
         public List<Fragment> Fragments { get; set; }
 
-        public DateTime ChangeDateNext { get; set; }
+        public Model.Version Next { get; set; }
 
-        public string NextVersionLink { get; set; }
+        public Model.Version Prev { get; set; }
 
-        public int NextVersion { get; set; }
-
-        public DateTime ChangeDatePrev { get; set; }
-
-        public string PrevVersionLink { get; set; }
-
-        public int PrevVersion { get; set; }
 
         public IActionResult OnGet(string title, int? version)
         {
@@ -31,14 +24,22 @@ namespace velociraptor.Pages
             List<History> histories = Database.Changes(title, currentVersion);
 
             int nextVesrion = Database.OtherVersion(title, currentVersion, next: true);
-            NextVersion = nextVesrion;
-            NextVersionLink = Url.Page("History", new { title, version = nextVesrion });
-            ChangeDateNext = Database.VersionDate(title, currentVersion);
+
+            Next = new Model.Version
+            {
+                Number = nextVesrion,
+                Link = Url.Page("History", new { title, version = nextVesrion }),
+                Date = Database.VersionDate(title, currentVersion),
+            };
 
             int prevVersion = Database.OtherVersion(title, currentVersion, prev: true);
-            PrevVersion = prevVersion;
-            PrevVersionLink = Url.Page("History", new { title, version = prevVersion });
-            ChangeDatePrev = Database.VersionDate(title, prevVersion);
+
+            Prev = new Model.Version
+            {
+                Number = prevVersion,
+                Link = Url.Page("History", new { title, version = prevVersion }),
+                Date = Database.VersionDate(title, prevVersion),
+            };
 
             Fragments = Fragment.Get(Article.Text, histories);
 
