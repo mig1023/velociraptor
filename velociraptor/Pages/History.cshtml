@@ -28,29 +28,36 @@
 
         if (!fragment.NoNewLine)
         {
-            <br/>
+                <br/>
+            }
         }
-    }
 
-    public void DiffColumn(string padding, string href, string hrefText, int version, string date, bool isNext)
-    {
+        public void DiffColumn(string padding, string href, string hrefText, int version, string date, bool isNext)
         {
-            <div class="column normal-text @padding">
-                @if (version != 0)
-                {
-                    <a class="normal-link" href="@href">@hrefText</a><br/>
-                }
-                else
-                {
+            if ((version != 0) || isNext)
+            {
+                <div class="column normal-text @padding">
+                    @if (version != 0)
+                    {
+                        <a class="normal-link" href="@href">@hrefText</a><br/>
+                    }
+                    else
+                    {
+                        <span class="normal-link">@hrefText</span><br/>
+                    }
+                    <h1 class="display-6 top-space">@date</h1>
+                    @foreach (Model.Fragment fragment in Model.Fragments)
+                    {
+                        FragmentsSeparator(fragment, next: isNext);
+                    }
+                </div>  
+            }
+            else
+            {
+                <div class="column normal-text @padding">
                     <span class="normal-link">@hrefText</span><br/>
-                }
-                <h1 class="display-6 top-space">@date</h1>
-                @foreach (Model.Fragment fragment in Model.Fragments)
-                {
-                    FragmentsSeparator(fragment, next: isNext);
-                }
-            </div>
-        }
+                </div>  
+            }
     }
 }
 
