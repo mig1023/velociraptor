@@ -60,7 +60,17 @@ namespace velociraptor.ORM
                 if (version == null)
                     return article;
 
+                List<int> allPrevVersions = AllVersions(title);
 
+                int restoredVersion = LastVersion(title);
+
+                while (restoredVersion > version)
+                {
+                    article.Text = History.Restore(article.Text, Changes(title, restoredVersion));
+                    restoredVersion = PrevVersion(title, restoredVersion);
+                }
+
+                return article;
             }
         }
 

@@ -21,9 +21,9 @@ namespace velociraptor.Pages
 
         public IActionResult OnGet(string title, int? version)
         {
-            int currentVersion = version ?? Database.LastVersion(title);
+            Article = Database.Get(title, version);
 
-            Article = Database.Get(title);
+            int currentVersion = version ?? Database.LastVersion(title);
             List<History> histories = Database.Changes(title, currentVersion);
 
             ChangeDateNext = Database.VersionDate(title, currentVersion);
