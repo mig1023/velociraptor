@@ -32,11 +32,18 @@
         }
     }
 
-    public void DiffColumn(string padding, string href, string hrefText, string date, bool isNext)
+    public void DiffColumn(string padding, string href, string hrefText, int version, string date, bool isNext)
     {
         {
             <div class="column normal-text @padding">
-                <a class="normal-link" href="@href">@hrefText</a><br/>
+                @if (version != 0)
+                {
+                    <a class="normal-link" href="@href">@hrefText</a><br/>
+                }
+                else
+                {
+                    @hrefText<br/>
+                }
                 <h1 class="display-6 top-space">@date</h1>
                 @foreach (Model.Fragment fragment in Model.Fragments)
                 {
@@ -53,7 +60,10 @@
 
 <div class="table text-center">
     @{
-        DiffColumn("right-padding", Model.PrevVersion, "Previous version", Model.ChangeDatePrev.ToString(), false);
-        DiffColumn("left-padding", Model.NextVersion, "Next version", Model.ChangeDateNext.ToString(), true);
+        DiffColumn("right-padding", Model.PrevVersionLink, "Previous version",
+            Model.PrevVersion, Model.ChangeDatePrev.ToString(), false);
+
+        DiffColumn("left-padding", Model.NextVersionLink, "Next version",
+            Model.NextVersion, Model.ChangeDateNext.ToString(), true);
     }
 </div>
