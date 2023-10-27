@@ -1,0 +1,33 @@
+﻿@page "/register"
+@model velociraptor.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Register</h1>
+</div>
+
+<div class="row d-flex justify-content-center align-items-center h-100 top-space">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+                <form method="post">
+                    <div class="form-outline mb-4">
+                        <input type="email" asp-for="User.Email" class="form-control" />
+                        <label class="form-label" asp-for="User.Email">Email address</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="password" asp-for="User.Password" class="form-control" />
+                        <label class="form-label" asp-for="User.Password">Password</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-block mb-4 btn_fix">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

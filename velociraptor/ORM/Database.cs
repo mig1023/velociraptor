@@ -4,6 +4,22 @@ namespace velociraptor.ORM
 {
     public class Database
     {
+        public static void Register(string email, string password)
+        {
+            User newUser = new User
+            {
+                Email = email,
+                Password = password,
+                RegisterDate = DateTime.Now,
+            };
+
+            using (EntityContext db = new EntityContext())
+            {
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
+        }
+
         public static void Create(string article)
         {
             Article newArticle = new Article
