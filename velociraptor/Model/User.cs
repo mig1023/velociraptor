@@ -11,6 +11,8 @@ namespace velociraptor.Model
         [Required]
         public string Password { get; set; }
 
+        public string? Salt { get; set; }
+
         public DateTime RegisterDate { get; set; }
     }
 }

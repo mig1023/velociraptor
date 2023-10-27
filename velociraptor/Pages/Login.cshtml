@@ -12,7 +12,7 @@
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-                <form>
+                <form method="post">
                     <div class="form-outline mb-4">
                         <input type="email" asp-for="User.Email" class="form-control" />
                         <label class="form-label" asp-for="User.Email">Email address</label>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary btn-block mb-4 btn_fix">Login</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-4 btn_fix">Login</button>
                             or <a asp-page="/register">Register</a>
                     </div>
                 </form>
