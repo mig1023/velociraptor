@@ -25,28 +25,13 @@ namespace velociraptor.Pages
 
             if (Database.VerifyPassword(User.Email, User.Password))
             {
-                HttpContext context = PageContext.HttpContext;
-                SetCookies(User.Email, context);
+                Session.SetCookies(User.Email, PageContext.HttpContext);
                 return RedirectToPage("Index");
             }
             else
             {
                 return Page();
             }
-        }
-
-        private async void SetCookies(string identity, HttpContext context)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, identity)
-            };
-
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity));
         }
     }
 }

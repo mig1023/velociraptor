@@ -20,6 +20,7 @@ namespace velociraptor.Pages
                 return Page();
 
             Database.Register(User.Email, User.Password);
+            Session.SetCookies(User.Email, PageContext.HttpContext);
 
             return RedirectToPage("Index");
         }
