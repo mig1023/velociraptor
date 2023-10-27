@@ -18,13 +18,14 @@ namespace velociraptor.Pages
         {
         }
 
-        public IActionResult OnPost(HttpContext context)
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
             if (Database.VerifyPassword(User.Email, User.Password))
             {
+                HttpContext context = PageContext.HttpContext;
                 SetCookies(User.Email, context);
                 return RedirectToPage("Index");
             }
