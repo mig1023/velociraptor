@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -6,6 +7,7 @@ using velociraptor.ORM;
 
 namespace velociraptor.Pages
 {
+    [Authorize]
     public class AddModel : PageModel
     {
         [BindProperty]
