@@ -19,6 +19,9 @@ namespace velociraptor.Pages
             if (!ModelState.IsValid)
                 return Page();
 
+            if (Database.EmailAlreadyTaken(User.Email))
+                return Page();
+
             Database.Register(User.Email, User.Password);
             Session.SetCookies(User.Email, PageContext.HttpContext);
 

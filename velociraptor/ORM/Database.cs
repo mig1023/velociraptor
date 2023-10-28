@@ -6,7 +6,8 @@ namespace velociraptor.ORM
     {
         public static void Register(string email, string password)
         {
-            string passwordHash = Cryptography.ProtectPassword(password, out string salt);
+            string passwordHash = Cryptography
+                .ProtectPassword(password, out string salt);
 
             User newUser = new User
             {
@@ -23,6 +24,17 @@ namespace velociraptor.ORM
             }
         }
 
+        public static bool EmailAlreadyTaken(string email)
+        {
+            using (EntityContext db = new EntityContext())
+            {
+                User user = db.Users
+                    .SingleOrDefault(x => x.Email == email);
+
+                return user != null;
+            }
+        }
+
         public static bool VerifyPassword(string email, string password)
         {
             using (EntityContext db = new EntityContext())
@@ -33,7 +45,10 @@ namespace velociraptor.ORM
                 if (user == null)
                     return false;
 
-                return Cryptography.ValidatePassword(user.Password, user.Salt, password);
+                bool passwordIdValid = Cryptography
+                    .ValidatePassword(user.Password, user.Salt, password);
+
+                return passwordIdValid;
             }
         }
 
