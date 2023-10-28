@@ -1,8 +1,22 @@
-﻿<ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-page="/login">Login</a>
-    </li>
+﻿@using System.Security.Claims 
+
+<ul class="navbar-nav">
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/index">@User.Identity.Name</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/login">Login</a>
+        </li>
+    }
 </ul>
