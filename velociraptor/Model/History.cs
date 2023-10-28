@@ -36,10 +36,11 @@ namespace velociraptor.Model
         {
         }
 
-        public History(int articleId, int newVersion)
+        public History(int articleId, int newVersion, string author)
         {
             this.ArcticleId = articleId;
             this.Version = newVersion;
+            this.Author = author;
             this.Date = DateTime.Now;
         }
 
@@ -56,21 +57,19 @@ namespace velociraptor.Model
             {
                 if (item.DeleteCountA > 0)
                 {
-                    History history = new History(articleId, newVersion);
+                    History history = new History(articleId, newVersion, author);
                     history.Text = oldText.Substring(item.DeleteStartA, item.DeleteCountA);
                     history.Pos = item.DeleteStartA;
                     history.Type = ChangeType.Deleted;
-                    history.Author = author;
                     histories.Add(history);
                 }
 
                 if (item.InsertCountB > 0)
                 {
-                    History history = new History(articleId, newVersion);
+                    History history = new History(articleId, newVersion, author);
                     history.Text = newText.Substring(item.InsertStartB, item.InsertCountB);
                     history.Pos = item.InsertStartB;
                     history.Type = ChangeType.Inserted;
-                    history.Author = author;
                     histories.Add(history);
                 }
             }
