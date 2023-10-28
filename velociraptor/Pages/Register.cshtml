@@ -14,11 +14,13 @@
             <div class="card-body p-5 text-center">
                 <form method="post">
                     <div class="form-outline mb-4">
+                        <span asp-validation-for="User.Email" class="error-text"></span>
                         <input type="email" asp-for="User.Email" class="form-control" />
                         <label class="form-label" asp-for="User.Email">Email address</label>
                     </div>
 
                     <div class="form-outline mb-4">
+                        <span asp-validation-for="User.Password" class="error-text"></span>
                         <input type="password" asp-for="User.Password" class="form-control" />
                         <label class="form-label" asp-for="User.Password">Password</label>
                     </div>

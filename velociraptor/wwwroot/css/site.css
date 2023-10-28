@@ -68,6 +68,11 @@ body {
     font-weight: 300;
 }
 
+.error-text {
+    font-weight: bold;
+    color: red;
+}
+
 a, u {
     text-decoration: none;
 }
