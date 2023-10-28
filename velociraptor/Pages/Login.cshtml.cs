@@ -31,6 +31,7 @@ namespace velociraptor.Pages
             }
             else
             {
+                ModelState.AddModelError("User.Email", "Email or Password is wrong");
                 return Page();
             }
         }
