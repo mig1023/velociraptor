@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using velociraptor.Model;
@@ -5,6 +6,7 @@ using velociraptor.ORM;
 
 namespace velociraptor.Pages
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         [BindProperty]
