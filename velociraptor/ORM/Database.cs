@@ -1,4 +1,5 @@
-﻿using velociraptor.Model;
+﻿using System.Security.Claims;
+using velociraptor.Model;
 
 namespace velociraptor.ORM
 {
@@ -52,13 +53,14 @@ namespace velociraptor.ORM
             }
         }
 
-        public static void Create(string article)
+        public static void Create(string article, HttpContext context)
         {
             Article newArticle = new Article
             {
                 Title = article,
                 Text = String.Empty,
                 Created = DateTime.Now,
+                Author = context.User.Identity.Name,
                 LastChange = DateTime.Now,
             };
 

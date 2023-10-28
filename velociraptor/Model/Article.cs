@@ -15,6 +15,8 @@ namespace velociraptor.Model
 
         public DateTime Created { get; set; }
 
+        public string Author { get; set; }
+
         public DateTime LastChange { get; set; }
     }
 }

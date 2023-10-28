@@ -30,10 +30,14 @@ namespace velociraptor.Pages
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
+            {
                 return Page();
+            }
 
             if (!Database.Exists(Title, out Article _))
-                Database.Create(Title);
+            {
+                Database.Create(Title, PageContext.HttpContext);
+            }
 
             return RedirectToPage("Edit", new { Title });
         }
