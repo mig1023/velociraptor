@@ -20,7 +20,9 @@ namespace velociraptor.Pages
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
+            {
                 return Page();
+            }
 
             if (Database.VerifyPassword(User.Email, User.Password))
             {

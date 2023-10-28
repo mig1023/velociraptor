@@ -19,5 +19,10 @@ namespace velociraptor.ORM
             await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
         }
+
+        public static async void SetCookiesOut(HttpContext context)
+        {
+            await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
     }
 }
