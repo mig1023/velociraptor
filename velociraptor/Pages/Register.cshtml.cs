@@ -20,7 +20,10 @@ namespace velociraptor.Pages
                 return Page();
 
             if (Database.EmailAlreadyTaken(User.Email))
+            {
+                ModelState.AddModelError("User.Email", "Email already taken");
                 return Page();
+            }
 
             Database.Register(User.Email, User.Password);
             Session.SetCookies(User.Email, PageContext.HttpContext);
