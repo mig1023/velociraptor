@@ -40,12 +40,11 @@
                 <div class="column normal-text @padding">
                     @if (version != 0)
                     {
-                        <a class="normal-link" href="@href">@hrefText</a> @author
-                        <br/>
+                        <a class="normal-link" href="@href">@hrefText</a> @author<br/>
                     }
                     else
                     {
-                        <span class="normal-link">@hrefText</span><br/>
+                        <span class="normal-link">@hrefText</span> @author<br/>
                     }
                     <h1 class="display-6 top-space">@date</h1>
                     @foreach (Model.Fragment fragment in Model.Fragments)
@@ -73,6 +72,6 @@
             Model.Prev.Number, Model.Prev.Author, Model.Prev.Date.ToString(), false);
 
         DiffColumn("left-padding", Model.Next.Link, "Next version",
-            Model.Next.Number, Model.Prev.Author, Model.Next.Date.ToString(), true);
+            Model.Next.Number, Model.Next.Author, Model.Next.Date.ToString(), true);
     }
 </div>

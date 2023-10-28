@@ -24,7 +24,7 @@ namespace velociraptor.Pages
             List<History> histories = Database.Changes(title, currentVersion);
 
             int nextVesrion = Database.OtherVersion(title, currentVersion, next: true);
-            Database.VersionData(title, currentVersion, out DateTime date, out string author);
+            Database.VersionData(title, nextVesrion, out DateTime date, out string author);
 
             Next = new Model.Version
             {

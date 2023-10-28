@@ -202,8 +202,17 @@ namespace velociraptor.ORM
                     .Where(x => x.Version == version)
                     .FirstOrDefault();
 
-                date = history.Date;
-                author = history.Author;
+                if (history != null)
+                {
+                    date = history.Date;
+                    author = history.Author;
+                }
+                else
+                {
+                    date = DateTime.Now;
+                    author = string.Empty;
+                }
+
             }
         }
     }
