@@ -26,6 +26,8 @@ namespace velociraptor.Model
 
         public int Version { get; set; }
 
+        public string Author { get; set; }
+
         public DateTime Date { get; set; }
 
         public ChangeType Type { get; set; }
@@ -41,7 +43,8 @@ namespace velociraptor.Model
             this.Date = DateTime.Now;
         }
 
-        public static List<History> Get(int articleId, int newVersion, string oldText, string newText)
+        public static List<History> Get(int articleId, int newVersion,
+            string oldText, string newText, string author)
         {
             IDiffer diff = new Differ();
             IChunker chunker = new CharacterChunker();
@@ -57,6 +60,7 @@ namespace velociraptor.Model
                     history.Text = oldText.Substring(item.DeleteStartA, item.DeleteCountA);
                     history.Pos = item.DeleteStartA;
                     history.Type = ChangeType.Deleted;
+                    history.Author = author;
                     histories.Add(history);
                 }
 
@@ -66,6 +70,7 @@ namespace velociraptor.Model
                     history.Text = newText.Substring(item.InsertStartB, item.InsertCountB);
                     history.Pos = item.InsertStartB;
                     history.Type = ChangeType.Inserted;
+                    history.Author = author;
                     histories.Add(history);
                 }
             }

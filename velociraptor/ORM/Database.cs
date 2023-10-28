@@ -71,7 +71,7 @@ namespace velociraptor.ORM
             }
         }
 
-        public static void Save(Article article)
+        public static void Save(Article article, HttpContext context)
         {
             using (EntityContext db = new EntityContext())
             {
@@ -80,7 +80,9 @@ namespace velociraptor.ORM
 
                 if (change != null)
                 {
-                    List<History> diffChanges = History.Get(change.Id, newVersion, change.Text, article.Text);
+                    List<History> diffChanges = History.Get(change.Id, newVersion,
+                        change.Text, article.Text, context.User.Identity.Name);
+
                     db.Histories.AddRange(diffChanges);
 
                     change.Text = article.Text;

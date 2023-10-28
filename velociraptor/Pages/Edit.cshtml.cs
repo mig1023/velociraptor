@@ -32,7 +32,7 @@ namespace velociraptor.Pages
 
         public IActionResult OnPost(string title)
         {
-            Database.Save(Article);
+            Database.Save(Article, PageContext.HttpContext);
             return RedirectToPage("View", new { title });
         }
     }
