@@ -189,20 +189,21 @@ namespace velociraptor.ORM
             return article != null;
         }
 
-        public static DateTime VersionDate(string title, int version)
+        public static void VersionData(string title, int version,
+            out DateTime date, out string author)
         {
             using (EntityContext db = new EntityContext())
             {
                 Article? article = db.Articles
                     .SingleOrDefault(x => x.Title == title);
 
-                DateTime date = db.Histories
+                History history = db.Histories
                     .Where(x => x.ArcticleId == article.Id)
                     .Where(x => x.Version == version)
-                    .Select(x => x.Date)
                     .FirstOrDefault();
 
-                return date;
+                date = history.Date;
+                author = history.Author;
             }
         }
     }

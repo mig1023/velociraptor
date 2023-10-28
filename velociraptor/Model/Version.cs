@@ -6,6 +6,8 @@
 
         public int Number { get; set; }
 
+        public string Author { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

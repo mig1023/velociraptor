@@ -24,21 +24,25 @@ namespace velociraptor.Pages
             List<History> histories = Database.Changes(title, currentVersion);
 
             int nextVesrion = Database.OtherVersion(title, currentVersion, next: true);
+            Database.VersionData(title, currentVersion, out DateTime date, out string author);
 
             Next = new Model.Version
             {
                 Number = nextVesrion,
                 Link = Url.Page("History", new { title, version = nextVesrion }),
-                Date = Database.VersionDate(title, currentVersion),
+                Author = author,
+                Date = date,
             };
 
             int prevVersion = Database.OtherVersion(title, currentVersion, prev: true);
+            Database.VersionData(title, prevVersion, out date, out author);
 
             Prev = new Model.Version
             {
                 Number = prevVersion,
                 Link = Url.Page("History", new { title, version = prevVersion }),
-                Date = Database.VersionDate(title, prevVersion),
+                Author = author,
+                Date = date,
             };
 
             Fragments = Fragment.Get(Article.Text, histories);

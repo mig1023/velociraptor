@@ -32,14 +32,16 @@
             }
         }
 
-        public void DiffColumn(string padding, string href, string hrefText, int version, string date, bool isNext)
+        public void DiffColumn(string padding, string href, string hrefText,
+            int version, string author, string date, bool isNext)
         {
             if ((version != 0) || isNext)
             {
                 <div class="column normal-text @padding">
                     @if (version != 0)
                     {
-                        <a class="normal-link" href="@href">@hrefText</a><br/>
+                        <a class="normal-link" href="@href">@hrefText</a> @author
+                        <br/>
                     }
                     else
                     {
@@ -68,9 +70,9 @@
 <div class="table text-center">
     @{
         DiffColumn("right-padding", Model.Prev.Link, "Previous version",
-            Model.Prev.Number, Model.Prev.Date.ToString(), false);
+            Model.Prev.Number, Model.Prev.Author, Model.Prev.Date.ToString(), false);
 
         DiffColumn("left-padding", Model.Next.Link, "Next version",
-            Model.Next.Number, Model.Next.Date.ToString(), true);
+            Model.Next.Number, Model.Prev.Author, Model.Next.Date.ToString(), true);
     }
 </div>
