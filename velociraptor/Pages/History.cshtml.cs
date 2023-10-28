@@ -11,6 +11,8 @@ namespace velociraptor.Pages
 
         public List<Fragment> Fragments { get; set; }
 
+        public string ChangesAuthor { get; set; }
+
         public Model.Version Next { get; set; }
 
         public Model.Version Prev { get; set; }
@@ -24,24 +26,24 @@ namespace velociraptor.Pages
             List<History> histories = Database.Changes(title, currentVersion);
 
             int nextVesrion = Database.OtherVersion(title, currentVersion, next: true);
-            Database.VersionData(title, nextVesrion, out DateTime date, out string author);
+            Database.VersionData(title, currentVersion, out DateTime date, out string author);
+
+            ChangesAuthor = author;
 
             Next = new Model.Version
             {
                 Number = nextVesrion,
                 Link = Url.Page("History", new { title, version = nextVesrion }),
-                Author = author,
                 Date = date,
             };
 
             int prevVersion = Database.OtherVersion(title, currentVersion, prev: true);
-            Database.VersionData(title, prevVersion, out date, out author);
+            Database.VersionData(title, currentVersion, out date, out _);
 
             Prev = new Model.Version
             {
                 Number = prevVersion,
                 Link = Url.Page("History", new { title, version = prevVersion }),
-                Author = author,
                 Date = date,
             };
 

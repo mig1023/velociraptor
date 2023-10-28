@@ -23,55 +23,56 @@
         }
         else
         {
-                @fragment.Text
+            @fragment.Text
         }
 
         if (!fragment.NoNewLine)
         {
-                <br/>
-            }
+            <br/>
         }
+    }
 
-        public void DiffColumn(string padding, string href, string hrefText,
-            int version, string author, string date, bool isNext)
+    public void DiffColumn(string padding, string href, string hrefText,
+        int version, string date, bool isNext)
+    {
+        if ((version != 0) || isNext)
         {
-            if ((version != 0) || isNext)
-            {
-                <div class="column normal-text @padding">
-                    @if (version != 0)
-                    {
-                        <a class="normal-link" href="@href">@hrefText</a> @author<br/>
-                    }
-                    else
-                    {
-                        <span class="normal-link">@hrefText</span> @author<br/>
-                    }
-                    <h1 class="display-6 top-space">@date</h1>
-                    @foreach (Model.Fragment fragment in Model.Fragments)
-                    {
-                        FragmentsSeparator(fragment, next: isNext);
-                    }
-                </div>  
-            }
-            else
-            {
-                <div class="column normal-text @padding">
-                    <span class="normal-link">@hrefText</span><br/>
-                </div>  
-            }
+            <div class="column normal-text @padding">
+                @if (version != 0)
+                {
+                    <a class="normal-link" href="@href">@hrefText</a>
+                }
+                else
+                {
+                    <span class="normal-link">@hrefText</span>
+                }
+                <h1 class="display-6 top-space">@date</h1>
+                @foreach (Model.Fragment fragment in Model.Fragments)
+                {
+                    FragmentsSeparator(fragment, next: isNext);
+                }
+            </div>
+        }
+        else
+        {
+            <div class="column normal-text @padding">
+                <span class="normal-link">@hrefText</span><br/>
+            </div>
+        }
     }
 }
 
 <p class="display-3">@ViewData["Title"]</p>
+<div>This edition author: @Model.ChangesAuthor</div>
 
 <br/>
 
 <div class="table text-center">
     @{
         DiffColumn("right-padding", Model.Prev.Link, "Previous version",
-            Model.Prev.Number, Model.Prev.Author, Model.Prev.Date.ToString(), false);
+            Model.Prev.Number, Model.Prev.Date.ToString(), false);
 
         DiffColumn("left-padding", Model.Next.Link, "Next version",
-            Model.Next.Number, Model.Next.Author, Model.Next.Date.ToString(), true);
+            Model.Next.Number, Model.Next.Date.ToString(), true);
     }
 </div>
